@@ -4,5 +4,9 @@ deploy:
   api_key:
     secure: GOglrAoRCIDuhFZVPHlcNGVpDvISUNo4U0n/noGzOK3zSudqGvVffHtaHFKQ1YA8Hs7RTQF7objduln3WHYNRRsniBAeU+TwTG+YgdvgGdgNkR75lsOdB4c+kS/5T+MPOUGP36ViBH6LexOgcp3yYbjehHjs1y8pyo2kjyjNnkpBMEGne3gNG2oj6wjWrZrHlyC96P+8HYdfsCb0CG1rDtCakD3Rb+t59hQ5FYUYOgfd9ZESwBp8v7SVQLUeP2wL8Dl58342Bq66eBQY3gqyndxzzGa0t900PUZrJd/c1rhpKNtLj+DbBbmC1YZRysxu2LoUdJvDpH7TPvzX10iGXblW/sue3cnRJRG+ujW7SSqUbg6RZrgKx9I8yh/qkwD/5g+UbnIbREBivQZ1UHjVDIlwQ/T4Ok+z3Yhk0Mo0vPQ37sbLUNT29LrAsGmpfRl0XUfEPKB2v2afv9Z5GygK7ZvXdfhatsYnHYVoF/iL14MZLeN++rxqQFzXEkJjLq7A6E3SZuUyy0Zwd2pGoLf3qQHGTC+CSRq6i0Fm0tb0ANq47jhgEIiPNdTdbKxyBM0AiZG5R6pYr+Ni9i0VEQAEQtTd50OBjZGhUc2SvOM9hcxJDjiHljml5CC3IYfeeHBtQeR3sxMStZndSSnHxWj5GWdR+agYrEPKLq2gYU+UKAY=
   file: build/libs/xlr-endevor-plugin-1.0.0.jar
+  skip_cleanup: true
   on:
+    all_branches: true
+    tags: true
     repo: xebialabs-community/xlr-endevor-plugin
+
