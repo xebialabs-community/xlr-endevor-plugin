@@ -1,6 +1,6 @@
 # xlr-endevor-plugin v1.0.0
 
-#### List All Configurations ####
+### List All Configurations ###
 
 This action lists all the available CA Endevor SCM configurations on the server.
 
@@ -10,7 +10,7 @@ None
 ##### Output:#####
 List of available CA Endevor SCM instances that are defined by configuration files on the server in JSON format.
 
-#### List Parameters of a Configuration ####
+### List Parameters of a Configuration ###
 
 This action lists all the parameters of a specific CA Endevor SCM configuration.
 
@@ -20,7 +20,7 @@ Configuration instance
 ##### Output:#####
 List of a specific CA Endevor SCM configuration in JSON format.
 
-#### List Packages ####
+### List Packages ###
 
 The List package action lists CA Endevor SCM packages. Name-masking is supported to filter package names.
 

@@ -33,4 +33,20 @@
         <property name="endevorResult" category="output" kind="map_string_string" />
     </type>
 
+    <type type="endevor.ListPackages" extends="xlrelease.PythonScript">
+        <property name="scriptLocation" default="endevor/ListPackages.py" hidden="true" />
+<!--    <property name="iconLocation" default="endevor/endevor.png" hidden="true" /> -->
+
+        <property name="endevorServer" category="input" label="Server" referenced-type="endevor.Server" kind="ci"/>
+        <property name="username" category="input" label="username" required="true" />
+        <property name="password" password="true" category="input" required="true" />
+
+        <property name="instance" category="input" kind="string" />
+        <property name="status" category="input" kind="list_of_string" />
+        <property name="packageType" category="input" kind="string" />
+        <property name="enterprise" category="input" kind="string" />
+        <property name="promotion" category="input" kind="string" />
+        <property name="endevorResult" category="output" kind="list_of_string" />
+    </type>
+
 </synthetic>
