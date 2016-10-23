@@ -13,7 +13,7 @@
     <type type="endevor.Task" extends="xlrelease.PythonScript" virtual="true">
 <!--    <property name="iconLocation" default="endevor/endevor.png" hidden="true" /> -->
         <property name="endevorServer" category="input" label="Server" referenced-type="endevor.Server" kind="ci" />
-        <property name="username" category="input" label="username" required="true" />
+        <property name="username" category="input" required="true" />
         <property name="password" password="true" category="input" required="true" />
         <property name="endevorReturnCode" category="output" kind="string" />
         <property name="endevorReasonCode" category="output" kind="string" />
@@ -54,7 +54,7 @@
         <property name="append" category="input" kind="boolean" />
         <property name="promotion" category="input" kind="boolean" />
         <property name="fromPackage" category="input" kind="string" />
-        <property name="fromDSN" category="input" kind="string" />
+        <property name="fromDSN" category="input" label="From DSN" kind="string" />
         <property name="fromMember" category="input" kind="string" />
         <property name="doNotValidate" category="input" kind="boolean" />
         <property name="endevorResult" category="output" kind="string" />

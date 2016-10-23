@@ -10,7 +10,7 @@ from urllib import urlencode
 import com.xhaus.jyson.JysonCodec as json
 from xlrelease.HttpRequest import HttpRequest
 
-HTTP_SUCCESS = sets.Set([200,404])
+HTTP_SUCCESS = sets.Set([200])
 
 class Endevor_Client(object):
     def __init__(self, httpConnection, username=None, password=None):
