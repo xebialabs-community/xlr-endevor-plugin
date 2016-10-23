@@ -8,45 +8,56 @@
 -->
 <synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <type type="endevor.Server" extends="configuration.HttpConnection"/>
+    <type type="endevor.Server" extends="configuration.HttpConnection" />
 
-    <type type="endevor.ListAllConfigurations" extends="xlrelease.PythonScript">
-        <property name="scriptLocation" default="endevor/ListAllConfigurations.py" hidden="true" />
+    <type type="endevor.Task" extends="xlrelease.PythonScript" virtual="true">
 <!--    <property name="iconLocation" default="endevor/endevor.png" hidden="true" /> -->
-
-        <property name="endevorServer" category="input" label="Server" referenced-type="endevor.Server" kind="ci"/>
+        <property name="endevorServer" category="input" label="Server" referenced-type="endevor.Server" kind="ci" />
         <property name="username" category="input" label="username" required="true" />
         <property name="password" password="true" category="input" required="true" />
+        <property name="endevorReturnCode" category="output" kind="string" />
+        <property name="endevorReasonCode" category="output" kind="string" />
+    </type>
 
+    <type type="endevor.ListAllConfigurations" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/ListAllConfigurations.py" hidden="true" />
         <property name="endevorResult" category="output" kind="list_of_string" />
     </type>
 
-    <type type="endevor.ListConfigurationParameters" extends="xlrelease.PythonScript">
+    <type type="endevor.ListConfigurationParameters" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/ListConfigurationParameters.py" hidden="true" />
-<!--    <property name="iconLocation" default="endevor/endevor.png" hidden="true" /> -->
-
-        <property name="endevorServer" category="input" label="Server" referenced-type="endevor.Server" kind="ci"/>
-        <property name="username" category="input" label="username" required="true" />
-        <property name="password" password="true" category="input" required="true" />
-
         <property name="instance" category="input" kind="string" />
         <property name="endevorResult" category="output" kind="map_string_string" />
     </type>
 
-    <type type="endevor.ListPackages" extends="xlrelease.PythonScript">
+    <type type="endevor.ListPackages" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/ListPackages.py" hidden="true" />
-<!--    <property name="iconLocation" default="endevor/endevor.png" hidden="true" /> -->
-
-        <property name="endevorServer" category="input" label="Server" referenced-type="endevor.Server" kind="ci"/>
-        <property name="username" category="input" label="username" required="true" />
-        <property name="password" password="true" category="input" required="true" />
-
         <property name="instance" category="input" kind="string" />
         <property name="status" category="input" kind="list_of_string" />
         <property name="packageType" category="input" kind="string" />
         <property name="enterprise" category="input" kind="string" />
         <property name="promotion" category="input" kind="string" />
         <property name="endevorResult" category="output" kind="list_of_string" />
+    </type>
+
+    <type type="endevor.UpdatePackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/UpdatePackage.py" hidden="true" />
+        <property name="instance" category="input" kind="string" />
+        <property name="package" category="input" kind="string" />
+        <property name="ewfromdate" category="input" kind="string" />
+        <property name="ewfromtime" category="input" kind="string" />
+        <property name="ewtodate" category="input" kind="string" />
+        <property name="ewtotime" category="input" kind="string" />
+        <property name="packageType" category="input" kind="string" />
+        <property name="shareable" category="input" kind="boolean" />
+        <property name="backout" category="input" kind="boolean" default="true" />
+        <property name="append" category="input" kind="boolean" />
+        <property name="promotion" category="input" kind="boolean" />
+        <property name="fromPackage" category="input" kind="string" />
+        <property name="fromDSN" category="input" kind="string" />
+        <property name="fromMember" category="input" kind="string" />
+        <property name="doNotValidate" category="input" kind="boolean" />
+        <property name="endevorResult" category="output" kind="string" />
     </type>
 
 </synthetic>

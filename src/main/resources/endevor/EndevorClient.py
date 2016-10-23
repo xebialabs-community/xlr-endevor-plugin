@@ -63,8 +63,54 @@ class Endevor_Client(object):
             return ['package1','package2','package3']
         self.throw_error(response)
 
+    def update_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (instance, package)
+        
+        if ewfromdate:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate) 
+        if ewfromtime:
+            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime) 
+        if ewtodate:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate) 
+        if ewtotime:
+            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime) 
+        if packageType:
+            endevorUrl = "%s&type=%s" % (endevorUrl, packageType) 
+        if shareable:
+            endevorUrl = "%s&shareable=%s" % (endevorUrl, "yes")
+        else:
+            endevorUrl = "%s&shareable=%s" % (endevorUrl, "no")
+        if backout:
+            endevorUrl = "%s&backout=%s" % (endevorUrl, "yes")
+        else:
+            endevorUrl = "%s&backout=%s" % (endevorUrl, "no")
+        if append:
+            endevorUrl = "%s&append=%s" % (endevorUrl, "yes")
+        else:
+            endevorUrl = "%s&append=%s" % (endevorUrl, "no")
+        if promotion:
+            endevorUrl = "%s&promotion=%s" % (endevorUrl, "yes") 
+        else:
+            endevorUrl = "%s&promotion=%s" % (endevorUrl, "no")
+        if fromPackage:
+            endevorUrl = "%s&fromPackage=%s" % (endevorUrl, fromPackage) 
+        if fromDSN:
+            endevorUrl = "%s&fromDSN=%s" % (endevorUrl, fromDSN) 
+        if fromMember:
+            endevorUrl = "%s&fromMember=%s" % (endevorUrl, fromMember)
+        if doNotValidate:
+            endevorUrl = "%s&do-not-validate=%s" % (endevorUrl, "true") 
+        
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.get(endevorUrl.replace('&','?',1), contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+# TO-DO:  determine structure of returned data
+#           data = json.loads(response.getResponse())
+#           return data['key']
+            return "Endevor package info"
+        self.throw_error(response)
+
 # TO-DO:
-#   def update_packages(self):
 #   def cast_package(self):
 #   def approve_packages(self):
 #   def execute_package(self):
