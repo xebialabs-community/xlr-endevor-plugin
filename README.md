@@ -1,4 +1,8 @@
-# xlr-endevor-plugin v1.0.0
+# xlr-endevor-plugin v1.0.0 -- Under construction #
+
+**Assumes the CA Endevor SCM Web Services component is installed.
+Code returns dummy values for now pending testing against a live installation of CA Endevor.
+**
 
 ### List All Configurations ###
 
