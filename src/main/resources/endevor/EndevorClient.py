@@ -102,7 +102,7 @@ class Endevor_Client(object):
             endevorUrl = "%s&do-not-validate=%s" % (endevorUrl, "true") 
         
         print endevorUrl.replace('&','?',1)
-        response = self.httpRequest.get(endevorUrl.replace('&','?',1), contentType='application/json')
+        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
         if response.getStatus() in HTTP_SUCCESS:
 # TO-DO:  determine structure of returned data
 #           data = json.loads(response.getResponse())
@@ -110,10 +110,69 @@ class Endevor_Client(object):
             return "Endevor package info"
         self.throw_error(response)
 
+    def cast_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, validateComponents, backout):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Cast' % (instance, package)
+
+        if ewfromdate:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate) 
+        if ewfromtime:
+            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime) 
+        if ewtodate:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate) 
+        if ewtotime:
+            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime) 
+        if validateComponents:
+            endevorUrl = "%s&validate-components=%s" % (endevorUrl, validateComponents)
+        if backout:
+            endevorUrl = "%s&backout=%s" % (endevorUrl, "yes")
+        else:
+            endevorUrl = "%s&backout=%s" % (endevorUrl, "no")
+
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+# TO-DO:  determine structure of returned data
+#           data = json.loads(response.getResponse())
+#           return data['key']
+            return "Endevor cast result"
+        self.throw_error(response)
+
+    def approve_package(self, instance, package):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Approve' % (instance, package)
+
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+# TO-DO:  determine structure of returned data
+#           data = json.loads(response.getResponse())
+#           return data['key']
+            return "Endevor approve result"
+        self.throw_error(response)
+
+    def execute_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, status):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Execute' % (instance, package)
+
+        if ewfromdate:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate) 
+        if ewfromtime:
+            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime) 
+        if ewtodate:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate) 
+        if ewtotime:
+            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime) 
+        if status:
+            endevorUrl = "%s&status=%s" % (endevorUrl, status) 
+
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+# TO-DO:  determine structure of returned data
+#           data = json.loads(response.getResponse())
+#           return data['key']
+            return "Endevor execute result"
+        self.throw_error(response)
+
 # TO-DO:
-#   def cast_package(self):
-#   def approve_packages(self):
-#   def execute_package(self):
 #   def backout_package(self):
 #   def backin_package(self):
 #   def commit_package(self):

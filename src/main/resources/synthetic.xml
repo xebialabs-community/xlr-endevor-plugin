@@ -60,4 +60,33 @@
         <property name="endevorResult" category="output" kind="string" />
     </type>
 
+    <type type="endevor.CastPackage" extends="endevor.Task">
+        <property name="instance" category="input" kind="string" />
+        <property name="package" category="input" kind="string" />
+        <property name="ewfromdate" category="input" kind="string" />
+        <property name="ewfromtime" category="input" kind="string" />
+        <property name="ewtodate" category="input" kind="string" />
+        <property name="ewtotime" category="input" kind="string" />
+        <property name="validateComponents" category="input" kind="string" />
+        <property name="backout" category="input" kind="boolean" default="true" />
+        <property name="endevorResult" category="output" kind="string" />
+    </type>    
+
+    <type type="endevor.ApprovePackage" extends="endevor.Task">
+        <property name="instance" category="input" kind="string" />
+        <property name="package" category="input" kind="string" />
+        <property name="endevorResult" category="output" kind="string" />
+    </type>    
+
+    <type type="endevor.ExecutePackage" extends="endevor.Task">
+        <property name="instance" category="input" kind="string" />
+        <property name="package" category="input" kind="string" />
+        <property name="ewfromdate" category="input" kind="string" />
+        <property name="ewfromtime" category="input" kind="string" />
+        <property name="ewtodate" category="input" kind="string" />
+        <property name="ewtotime" category="input" kind="string" />
+        <property name="status" category="input" kind="string" />
+        <property name="endevorResult" category="output" kind="string" />
+    </type>    
+
 </synthetic>
