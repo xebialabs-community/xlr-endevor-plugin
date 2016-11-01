@@ -27,8 +27,8 @@ class Endevor_Client(object):
         if response.getStatus() in HTTP_SUCCESS: 
 # TO-DO:  determine structure of returned data
 #           data = json.loads(response.getResponse())
-#           return data['key']
-            return ['config1','config2','config3']
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", ['config1','config2','config3'])
         self.throw_error(response)
 
     def list_configuration_parameters(self, instance):
@@ -37,8 +37,8 @@ class Endevor_Client(object):
         if response.getStatus() in HTTP_SUCCESS:
 # TO-DO:  determine structure of returned data
 #           data = json.loads(response.getResponse())
-#           return data['key']
-            return {'param1':'value1','param2':'value2','param3':'value3'}
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", {'param1':'value1','param2':'value2','param3':'value3'})
         self.throw_error(response)
 
     def list_packages(self, instance, status, packageType, enterprise, promotion):
@@ -59,8 +59,8 @@ class Endevor_Client(object):
         if response.getStatus() in HTTP_SUCCESS:
 # TO-DO:  determine structure of returned data
 #           data = json.loads(response.getResponse())
-#           return data['key']
-            return ['package1','package2','package3']
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", ['package1','package2','package3'])
         self.throw_error(response)
 
     def update_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate):
@@ -106,8 +106,8 @@ class Endevor_Client(object):
         if response.getStatus() in HTTP_SUCCESS:
 # TO-DO:  determine structure of returned data
 #           data = json.loads(response.getResponse())
-#           return data['key']
-            return "Endevor package info"
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor package info")
         self.throw_error(response)
 
     def cast_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, validateComponents, backout):
@@ -133,8 +133,8 @@ class Endevor_Client(object):
         if response.getStatus() in HTTP_SUCCESS:
 # TO-DO:  determine structure of returned data
 #           data = json.loads(response.getResponse())
-#           return data['key']
-            return "Endevor cast result"
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor cast result")
         self.throw_error(response)
 
     def approve_package(self, instance, package):
@@ -145,8 +145,8 @@ class Endevor_Client(object):
         if response.getStatus() in HTTP_SUCCESS:
 # TO-DO:  determine structure of returned data
 #           data = json.loads(response.getResponse())
-#           return data['key']
-            return "Endevor approve result"
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor approve result")
         self.throw_error(response)
 
     def execute_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, status):
@@ -168,8 +168,8 @@ class Endevor_Client(object):
         if response.getStatus() in HTTP_SUCCESS:
 # TO-DO:  determine structure of returned data
 #           data = json.loads(response.getResponse())
-#           return data['key']
-            return "Endevor execute result"
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor execute result")
         self.throw_error(response)
 
 # TO-DO:

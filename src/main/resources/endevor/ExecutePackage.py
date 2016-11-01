@@ -16,5 +16,5 @@ credentials = CredentialsFallback(endevorServer, username, password).getCredenti
 
 endevorClient = Endevor_Client_Util.create_endevor_client(endevorServer, credentials['username'], credentials['password'])
 
-endevorResult = endevorClient.execute_package(instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, status)
+(endevorReturnCode, endevorReasonCode, endevorResult) = endevorClient.execute_package(instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, status)
 print endevorResult
