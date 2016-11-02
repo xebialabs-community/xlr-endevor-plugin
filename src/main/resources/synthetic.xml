@@ -61,6 +61,7 @@
     </type>
 
     <type type="endevor.CastPackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/CastPackage.py" hidden="true" />
         <property name="instance" category="input" kind="string" />
         <property name="package" category="input" kind="string" />
         <property name="ewfromdate" category="input" kind="string" />
@@ -73,12 +74,14 @@
     </type>    
 
     <type type="endevor.ApprovePackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/ApprovePackage.py" hidden="true" />
         <property name="instance" category="input" kind="string" />
         <property name="package" category="input" kind="string" />
         <property name="endevorResult" category="output" kind="string" />
     </type>    
 
     <type type="endevor.ExecutePackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/ExecutePackage.py" hidden="true" />
         <property name="instance" category="input" kind="string" />
         <property name="package" category="input" kind="string" />
         <property name="ewfromdate" category="input" kind="string" />
@@ -86,6 +89,59 @@
         <property name="ewtodate" category="input" kind="string" />
         <property name="ewtotime" category="input" kind="string" />
         <property name="status" category="input" kind="string" />
+        <property name="endevorResult" category="output" kind="string" />
+    </type>    
+
+    <type type="endevor.BackoutPackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/BackoutPackage.py" hidden="true" />
+        <property name="instance" category="input" kind="string" />
+        <property name="package" category="input" kind="string" />
+        <property name="statement" category="input" kind="string" />
+        <property name="element" category="input" kind="string" />
+        <property name="endevorResult" category="output" kind="string" />
+    </type>    
+
+    <type type="endevor.BackinPackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/BackinPackage.py" hidden="true" />
+        <property name="instance" category="input" kind="string" />
+        <property name="package" category="input" kind="string" />
+        <property name="statement" category="input" kind="string" />
+        <property name="element" category="input" kind="string" />
+        <property name="endevorResult" category="output" kind="string" />
+    </type>    
+
+    <type type="endevor.CommitPackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/CommitPackage.py" hidden="true" />
+        <property name="instance" category="input" kind="string" />
+        <property name="package" category="input" kind="string" />
+        <property name="olderThan" category="input" kind="string" />
+        <property name="deletePromotionHistory" category="input" kind="boolean" />
+        <property name="endevorResult" category="output" kind="string" />
+    </type>    
+
+    <type type="endevor.ShipPackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/ShipPackage.py" hidden="true" />
+        <property name="instance" category="input" kind="string" />
+        <property name="package" category="input" kind="string" />
+        <property name="destination" category="input" kind="string" />
+        <property name="option" category="input" kind="string" />
+        <property name="prefix" category="input" kind="string" />
+        <property name="endevorResult" category="output" kind="string" />
+    </type>    
+
+    <type type="endevor.DeletePackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/DeletePackage.py" hidden="true" />
+        <property name="instance" category="input" kind="string" />
+        <property name="package" category="input" kind="string" />
+        <property name="olderThan" category="input" kind="string" />
+        <property name="status" category="input" kind="string" />
+        <property name="endevorResult" category="output" kind="string" />
+    </type>    
+
+    <type type="endevor.ResetPackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/ResetPackage.py" hidden="true" />
+        <property name="instance" category="input" kind="string" />
+        <property name="package" category="input" kind="string" />
         <property name="endevorResult" category="output" kind="string" />
     </type>    
 

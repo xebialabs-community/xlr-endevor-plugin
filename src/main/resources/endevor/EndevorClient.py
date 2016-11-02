@@ -172,13 +172,106 @@ class Endevor_Client(object):
             return ("0000", "0000", "Endevor execute result")
         self.throw_error(response)
 
-# TO-DO:
-#   def backout_package(self):
-#   def backin_package(self):
-#   def commit_package(self):
-#   def ship_package(self):
-#   def delete_package(self):
-#   def reset_package(self):
+    def backout_package(self, instance, package, statement, element):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Backout' % (instance, package)
+
+        if statement:
+            endevorUrl = "%s&statement=%s" % (endevorUrl, statement) 
+        if element:
+            endevorUrl = "%s&element=%s" % (endevorUrl, element) 
+
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+# TO-DO:  determine structure of returned data
+#           data = json.loads(response.getResponse())
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor backout result")
+        self.throw_error(response)
+
+    def backin_package(self, instance, package, statement, element):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Backin' % (instance, package)
+
+        if statement:
+            endevorUrl = "%s&statement=%s" % (endevorUrl, statement) 
+        if element:
+            endevorUrl = "%s&element=%s" % (endevorUrl, element) 
+
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+# TO-DO:  determine structure of returned data
+#           data = json.loads(response.getResponse())
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor backin result")
+        self.throw_error(response)
+
+    def commit_package(self, instance, package, olderThan, deletePromotionHistory):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Commit' % (instance, package)
+
+        if olderThan:
+            endevorUrl = "%s&olderthan=%s" % (endevorUrl, olderThan) 
+        if deletePromotionHistory:
+            endevorUrl = "%sdelete-promotion-history=%s" % (endevorUrl, "true") 
+        else:
+            endevorUrl = "%sdelete-promotion-history=%s" % (endevorUrl, "false") 
+
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+# TO-DO:  determine structure of returned data
+#           data = json.loads(response.getResponse())
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor commit result")
+        self.throw_error(response)
+
+    def ship_package(self, instance, package, destination, option, prefix):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Ship' % (instance, package)
+
+        if destination:
+            endevorUrl = "%s&destination=%s" % (endevorUrl, destination) 
+        if option:
+            endevorUrl = "%s&option=%s" % (endevorUrl, option) 
+        if prefix:
+            endevorUrl = "%s&prefix=%s" % (endevorUrl, prefix) 
+
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+# TO-DO:  determine structure of returned data
+#           data = json.loads(response.getResponse())
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor ship result")
+        self.throw_error(response)
+
+    def delete_package(self, instance, package, olderThan, status):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (instance, package)
+
+        if olderThan:
+            endevorUrl = "%s&olderthan=%s" % (endevorUrl, olderThan) 
+        if status:
+            endevorUrl = "%s&status=%s" % (endevorUrl, status) 
+
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.delete(endevorUrl.replace('&','?',1), contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+# TO-DO:  determine structure of returned data
+#           data = json.loads(response.getResponse())
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor delete result")
+        self.throw_error(response)
+
+    def reset_package(self, instance, package):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Reset' % (instance, package)
+
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+# TO-DO:  determine structure of returned data
+#           data = json.loads(response.getResponse())
+#           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor reset result")
+        self.throw_error(response)
 
     def throw_error(self, response):
         print "Error from EndevorService, HTTP Return: %s\n" % (response.getStatus())
