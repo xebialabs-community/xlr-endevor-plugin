@@ -1,4 +1,19 @@
-# xlr-endevor-plugin v1.0.0 -- Under construction #
+# XL Release Endevor plugin v1.0.0 -- Under construction #
+
+## CI status ##
+
+[![Build Status][xlr-endevor-plugin-travis-image]][xlr-endevor-plugin-travis-url]
+[![License: MIT][xlr-endevor-plugin-license-image]][xlr-endevor-plugin-license-url]
+![Github All Releases][xlr-endevor-plugin-downloads-image]
+
+[xlr-endevor-plugin-travis-image]: https://travis-ci.org/xebialabs-community/xlr-endevor-plugin.svg?branch=master
+[xlr-endevor-plugin-travis-url]: https://travis-ci.org/xebialabs-community/xlr-endevor-plugin
+[xlr-endevor-plugin-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
+[xlr-endevor-plugin-license-url]: https://opensource.org/licenses/MIT
+[xlr-endevor-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-endevor-plugin/total.svg
+
+
+## Functionality ##
 
 **Assumes the CA Endevor SCM Web Services component is installed.
 Code returns dummy values for now pending testing against a live installation of CA Endevor.
