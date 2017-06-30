@@ -19,6 +19,63 @@
 Code returns dummy values for now pending testing against a live installation of CA Endevor.
 **
 
+### Approve Package ###
+
+This action approves a package.
+
+##### Input: #####
+
+##### Output: #####
+
+### Backin Package ###
+
+This action backs in a package.
+
+##### Input: #####
+
+##### Output: #####
+
+### Backout Package ###
+
+This action backs out a package.
+
+##### Input: #####
+
+##### Output: #####
+
+### Cast Package ###
+
+This action casts a package.
+
+##### Input: #####
+
+##### Output: #####
+
+### Commit Package ###
+
+This action commits a package.
+
+##### Input: #####
+
+##### Output: #####
+
+### Delete Package ###
+
+This action deletes a package.
+
+##### Input: #####
+
+##### Output: #####
+
+### Execute Package ###
+
+This action executes a package.
+
+##### Input: #####
+
+##### Output: #####
+
+
 ### List All Configurations ###
 
 This action lists all the available CA Endevor SCM configurations on the server.
@@ -26,7 +83,7 @@ This action lists all the available CA Endevor SCM configurations on the server.
 ##### Input: #####
 None
 
-##### Output:#####
+##### Output: #####
 List of available CA Endevor SCM instances that are defined by configuration files on the server in JSON format.
 
 ### List Parameters of a Configuration ###
@@ -36,7 +93,7 @@ This action lists all the parameters of a specific CA Endevor SCM configuration.
 #####Input: #####
 Configuration instance
 
-##### Output:#####
+##### Output: #####
 List of a specific CA Endevor SCM configuration in JSON format.
 
 ### List Packages ###
@@ -55,4 +112,30 @@ The List package action lists CA Endevor SCM packages. Name-masking is supported
 
 ##### Output: #####
 List of Packages in JSON format, which corresponds to the CA Endevor SCM List Package ID function of the CSV utility. 
+
+### Reset Package ###
+
+This action resets a package.
+
+##### Input: #####
+
+##### Output: #####
+
+### Ship Package ###
+
+This action ships a package.
+
+##### Input: #####
+
+##### Output: #####
+
+### Update Package ###
+
+This action updates a package.
+
+##### Input: #####
+
+##### Output: #####
+
+
 
