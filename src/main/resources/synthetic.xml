@@ -86,13 +86,14 @@
 
     <type type="endevor.ExecutePackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/ExecutePackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
-        <property name="package" category="input" kind="string" />
-        <property name="ewfromdate" category="input" kind="string" />
-        <property name="ewfromtime" category="input" kind="string" />
-        <property name="ewtodate" category="input" kind="string" />
-        <property name="ewtotime" category="input" kind="string" />
-        <property name="status" category="input" kind="string" />
+        <property name="instance"   category="input" kind="string" />
+        <property name="package"    category="input" kind="string" />
+        <property name="ewfromdate" category="input" kind="string" required="false"/>
+        <property name="ewfromtime" category="input" kind="string" required="false"/>
+        <property name="ewtodate"   category="input" kind="string" required="false"/>
+        <property name="ewtotime"   category="input" kind="string" required="false"/>
+        <property name="status"     category="input" kind="string" required="false" description="Valid status are: APPROVED, EXECFAILED"/>
+
         <property name="endevorResult" category="output" kind="string" />
     </type>    
 
@@ -125,11 +126,12 @@
 
     <type type="endevor.ShipPackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/ShipPackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
-        <property name="package" category="input" kind="string" />
+        <property name="instance"    category="input" kind="string" />
+        <property name="package"     category="input" kind="string" />
         <property name="destination" category="input" kind="string" />
-        <property name="option" category="input" kind="string" />
-        <property name="prefix" category="input" kind="string" />
+        <property name="option"      category="input" kind="string" required="false"/>
+        <property name="prefix"      category="input" kind="string" required="false"/>
+
         <property name="endevorResult" category="output" kind="string" />
     </type>    
 
