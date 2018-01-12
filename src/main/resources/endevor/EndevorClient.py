@@ -14,7 +14,7 @@ from urllib import urlencode
 import com.xhaus.jyson.JysonCodec as json
 from xlrelease.HttpRequest import HttpRequest
 
-HTTP_SUCCESS = sets.Set([200])
+HTTP_SUCCESS = sets.Set([200, 201, 202, 203, 204, 205, 206, 207, 208])
 
 class Endevor_Client(object):
     def __init__(self, httpConnection, username=None, password=None):
@@ -28,7 +28,7 @@ class Endevor_Client(object):
     def testServer(self):
         endevorUrl = 'EndevorService/rest/application.wadl'
         response = self.httpRequest.get(endevorUrl, contentType='text/xml')
-        if response.getStatus() HTTP_SCUCCESS:
+        if response.getStatus() in HTTP_SCUCCESS:
             data response.getResponse()
             logger.warn( data )
             return
