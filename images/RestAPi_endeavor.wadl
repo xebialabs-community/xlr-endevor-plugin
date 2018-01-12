@@ -1,0 +1,316 @@
+<application xmlns="http://wadl.dev.java.net/2009/02">
+<doc xmlns:jersey="http://jersey.java.net/" jersey:generatedBy="Jersey: 2.7 2014-03-12 18:11:31"/>
+<doc xmlns:jersey="http://jersey.java.net/" jersey:hint="This is simplified WADL with user and core resources only. To get full WADL with extended resources use the query parameter detail. Link: http://dev1:8060/EndevorService/rest/application.wadl?detail=true"/>
+<grammars/>
+<resources base="http://dev1:8060/EndevorService/rest/">
+<resource path="/{datasource}/{environment}/{stage}/{system}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="system" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="environment" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="stage" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getSystem" name="GET">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="search" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="return" style="query" type="xs:string"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{datasource}/{environment}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="environment" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getEnvironment" name="GET">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{datasource}/{environment}/{stage}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="environment" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="stage" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getStage" name="GET">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{datasource}/{environment}/{stage}/{system}/{subsystem}/{type}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="environment" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getType" name="GET">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{datasource}/{environment}/{stage}/{system}/{subsystem}/{type}/{element}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="element" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="system" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="environment" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="subsystem" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="type" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="stage" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getElement" name="GET">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="data" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="search" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="return" style="query" type="xs:string"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{datasource}/{environment}/{stage}/{system}/{subsystem}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="system" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="environment" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="subsystem" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="stage" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getSubsystem" name="GET">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="search" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="return" style="query" type="xs:string"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/">
+<method id="getConfigurations" name="GET">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+<resource path="/{datasource}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getConfiguration" name="GET">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+</resource>
+<resource path="/{datasource}/packages">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getPackages" name="GET">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="status" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="type" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="enterprise" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="promotion" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="targetenv" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="targetstg" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="approver" style="query" type="xs:string"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+<resource path="/{packagename}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="createPackage" name="POST">
+<request>
+<representation mediaType="multipart/form-data"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+<method id="getPackage" name="GET">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="status" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="type" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="enterprise" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="promotion" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="targetenv" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="targetstg" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="approver" style="query" type="xs:string"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+<method id="deletePackage" name="DELETE">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="status" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="olderthan" style="query" type="xs:int" default="0"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+<method id="updatePackage" name="PUT">
+<request>
+<representation mediaType="multipart/form-data"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Backin">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="backinPackage" name="PUT">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="statement" style="query" type="xs:int"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="element" style="query" type="xs:string"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Backout">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="backoutPackage" name="PUT">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="statement" style="query" type="xs:int"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="element" style="query" type="xs:string"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Commit">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="commitPackage" name="PUT">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="olderthan" style="query" type="xs:int" default="0"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="delete-promotion-history" style="query" type="xs:boolean" default="false"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Ship">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="shipPackage" name="PUT">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="destination" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="option" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="prefix" style="query" type="xs:string"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+<method id="getPackageShip" name="GET">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/SCL">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getPackageSCL" name="GET">
+<response>
+<representation mediaType="application/octet-stream"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Action">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getPackageAction" name="GET">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Deny">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="denyPackage" name="PUT">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Cast">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getPackageCastReport" name="GET">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+<method id="castPackage" name="PUT">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="backout" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="validate-components" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ewfromdate" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ewfromtime" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ewtodate" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ewtotime" style="query" type="xs:string"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Approver">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="getPackageApprover" name="GET">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Approve">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="approvePackage" name="PUT">
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Reset">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="resetPackage" name="PUT">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="retain" style="query" type="xs:boolean" default="false"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+<resource path="/{packagename}/Execute">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="packagename" style="template" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="datasource" style="template" type="xs:string"/>
+<method id="executePackage" name="PUT">
+<request>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="status" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ewfromdate" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ewfromtime" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ewtodate" style="query" type="xs:string"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ewtotime" style="query" type="xs:string"/>
+</request>
+<response>
+<representation mediaType="application/json"/>
+</response>
+</method>
+</resource>
+</resource>
+</resources>
+</application>
