@@ -28,8 +28,8 @@ class Endevor_Client(object):
     def testServer(self):
         endevorUrl = 'EndevorService/rest/application.wadl'
         response = self.httpRequest.get(endevorUrl, contentType='text/xml')
-        if response.getStatus() in HTTP_SCUCCESS:
-            data response.getResponse()
+        if response.getStatus() in HTTP_SUCCESS:
+            data = response.getResponse()
             logger.warn( data )
             return
         self.throw_error(response)
