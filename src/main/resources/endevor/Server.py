@@ -10,9 +10,16 @@
 
 from endevor.EndevorClientUtil import Endevor_Client_Util
 
-credentials = CredentialsFallback(endevorServer, username, password).getCredentials()
+params = {
+   'url': configuration.url,
+   'username': configuration.username,
+   'password': configuration.password,
+   'proxyHost': configuration.proxyHost,
+   'proxyPort': configuration.proxyPort
+}
 
-endevorClient = Endevor_Client_Util.create_endevor_client(endevorServer, credentials['username'], credentials['password'])
+endevorClient = Endevor_Client_Util.create_endevor_client( params )
 
 endevorClient.testServer()
+
 

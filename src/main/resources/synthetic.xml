@@ -46,22 +46,23 @@
 
     <type type="endevor.UpdatePackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/UpdatePackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
-        <property name="package" category="input" kind="string" />
-        <property name="ewfromdate" category="input" kind="string" />
-        <property name="ewfromtime" category="input" kind="string" />
-        <property name="ewtodate" category="input" kind="string" />
-        <property name="ewtotime" category="input" kind="string" />
-        <property name="packageType" category="input" kind="string" />
-        <property name="shareable" category="input" kind="boolean" />
-        <property name="backout" category="input" kind="boolean" default="true" />
-        <property name="append" category="input" kind="boolean" />
-        <property name="promotion" category="input" kind="boolean" />
-        <property name="fromPackage" category="input" kind="string" />
-        <property name="fromDSN" category="input" label="From DSN" kind="string" />
-        <property name="fromMember" category="input" kind="string" />
-        <property name="doNotValidate" category="input" kind="boolean" />
-        <property name="endevorResult" category="output" kind="string" />
+        <property name="instance"      category="input" kind="string"    required="false"/>
+        <property name="package"       category="input" kind="string"    required="false"/>
+        <property name="ewfromdate"    category="input" kind="string"    required="false"/>
+        <property name="ewfromtime"    category="input" kind="string"    required="false"/>
+        <property name="ewtodate"      category="input" kind="string"    required="false"/>
+        <property name="ewtotime"      category="input" kind="string"    required="false"/>
+        <property name="packageType"   category="input" kind="string"    required="false"/>
+        <property name="shareable"     category="input" kind="boolean"   default="false"/>
+        <property name="backout"       category="input" kind="boolean"   default="true" />
+        <property name="append"        category="input" kind="boolean"   default="false"/>
+        <property name="promotion"     category="input" kind="boolean"   default="false"/>
+        <property name="fromPackage"   category="input" kind="string"    required="false"/>
+        <property name="fromDSN"       category="input" kind="string"    required="false" label="From DSN" />
+        <property name="fromMember"    category="input" kind="string"    required="false"/>
+        <property name="doNotValidate" category="input" kind="boolean"   required="false"/>
+
+        <property name="endevorResult" category="output" kind="string"  required="false"/>
     </type>
 
     <type type="endevor.CastPackage" extends="endevor.Task">
