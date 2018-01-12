@@ -39,8 +39,8 @@
         <property name="instance" category="input" kind="string" />
         <property name="status" category="input" kind="list_of_string" />
         <property name="packageType" category="input" kind="string" />
-        <property name="enterprise" category="input" kind="string" />
-        <property name="promotion" category="input" kind="string" />
+        <property name="enterprise" category="input" kind="string" required="false"/>
+        <property name="promotion" category="input" kind="string" required="false"/>
         <property name="endevorResult" category="output" kind="list_of_string" />
     </type>
 

@@ -39,7 +39,7 @@ class Endevor_Client(object):
         response = self.httpRequest.get(endevorUrl, contentType='application/json')
         if response.getStatus() in HTTP_SUCCESS:
             data = json.loads(response.getResponse())
-            logger.warn( List All Configurations Return = %s" % data )
+            logger.warn("List All Configurations Return = %s" % data )
             # TO-DO:  determine structure of returned data
             #           return (data.returnCode, data.reasonCode, data.data['key'])
             return ("0000", "0000", ['config1','config2','config3'])
