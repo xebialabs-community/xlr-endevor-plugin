@@ -80,7 +80,7 @@ class Endevor_Client(object):
             pkgList=[]
             for pkg in data['data']:
                 pkgList.append( pkg['pkgId'] )
-    return (data['returnCode'], data['reasonCode'], pkgList)
+            return (data['returnCode'], data['reasonCode'], pkgList)
         else:
             logger.error("Return Code = %s" % data['returnCode'])
             logger.error("Reason Code = %s" % data['reasonCode'])
