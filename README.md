@@ -47,7 +47,7 @@ This action approves a package.
 
 | Variable | Description  |
 |----------|--------------|
-| instance | The instance |
+| instance | Name of a specific Endevor instance to validate instead of all available Endevor instances. |
 | Package  | The package  |
 
 ##### Output: 
@@ -102,7 +102,7 @@ This action executes a package.
 
 | Variable | Description  |
 |----------|--------------|
-| instance | The instance |
+| instance | Name of a specific Endevor instance to validate instead of all available Endevor instances. |
 | Package  | The package  |
 | Ewfromdate | Specifies the time frame within which to execute the package (Execution window). You can only use the execution window parameters if the package is fully qualified and the existing execution window is closed. |
 | Ewfromtime | Specifies the time frame within which to execute the package (Execution window). You can only use the execution window parameters if the package is fully qualified and the existing execution window is closed. |
@@ -141,7 +141,7 @@ The List package action lists CA Endevor SCM packages. Name-masking is supported
 
 | Variable | Description  |
 |----------|--------------|
-| instance | The instance |
+| instance | Name of a specific Endevor instance to validate instead of all available Endevor instances. |
 | Package  | The package  |
 | status   | filters by one or more of **INEDIT**, **INAPPROVAL**, **APPROVED**, **INEXECUTION**, **EXECUTED**, **COMMITTED**, **DENIED**.|
 | type     | filters by Standard or Emergency |

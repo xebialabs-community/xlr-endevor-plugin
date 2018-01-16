@@ -15,6 +15,7 @@ import com.xhaus.jyson.JysonCodec as json
 from xlrelease.HttpRequest import HttpRequest
 
 HTTP_SUCCESS = sets.Set([200, 201, 202, 203, 204, 205, 206, 207, 208])
+HTTP_ERROR = sets.Set([400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410,412, 413, 414, 415])
 
 class Endevor_Client(object):
     def __init__(self, httpConnection, username=None, password=None):
@@ -71,12 +72,19 @@ class Endevor_Client(object):
         
         print endevorUrl.replace('&','?',1)
         response = self.httpRequest.get(endevorUrl.replace('&','?',1), contentType='application/json')
+        data = json.loads(response.getResponse())
+        logger.warn( "List Packages Return = %s" % data )
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            logger.warn( "List Packages Return = %s" % data )
             # TO-DO:  determine structure of returned data
             #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", ['package1','package2','package3'])
+            pkgList=[]
+            for pkg in data['data']:
+                pkgList.append( pkg['pkgId'] )
+    return (data['returnCode'], data['reasonCode'], pkgList)
+        else:
+            logger.error("Return Code = %s" % data['returnCode'])
+            logger.error("Reason Code = %s" % data['reasonCode'])
+            logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def update_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate):

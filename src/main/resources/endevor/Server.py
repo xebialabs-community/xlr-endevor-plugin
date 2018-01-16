@@ -18,7 +18,7 @@ params = {
    'proxyPort': configuration.proxyPort
 }
 
-endevorClient = Endevor_Client_Util.create_endevor_client( params )
+endevorClient = Endevor_Client_Util.create_endevor_client( params, configuration.username, configuration.password)
 
 endevorClient.testServer()
 
