@@ -324,10 +324,7 @@ class Endevor_Client(object):
         if response.getStatus() in HTTP_SUCCESS:
             data = json.loads(response.getResponse())
             print( "Ship Package Return = %s" % data )
-            #logger.warn( "Ship Package Return = %s" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return (data['returnCode'], data['reasonCode'], "Endevor ship result")
+            return (data['returnCode'], data['reasonCode'], data['messages'])
         print("Return Code = %s" % data['returnCode'])
         print("Reason Code = %s" % data['reasonCode'])
         print("Message     = %s" % data['messages'])

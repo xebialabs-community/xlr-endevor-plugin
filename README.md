@@ -1,4 +1,4 @@
-# XL Release Endevor plugin v1.0.0 -- <span style="color:red">Under construction</span>
+# XL Release Endevor plugin v0.1.0
 
 [![Build Status][xlr-endevor-plugin-travis-image]][xlr-endevor-plugin-travis-url]
 [![License: MIT][xlr-endevor-plugin-license-image]][xlr-endevor-plugin-license-url]
@@ -34,10 +34,11 @@ This is a plugin allows XL Release to interact with Endevor for deploying, promo
 
 ## Functionality
 
-<span style="color:red">**Assumes the CA Endevor SCM Web Services component is installed.
-Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
+<span style="color:red">**Assumes the CA Endevor SCM Web Services component is installed.**</span>
 
 ### Approve Package
+
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
 
 This action approves a package.
 
@@ -54,6 +55,8 @@ This action approves a package.
 
 ### Backin Package
 
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
+
 This action backs in a package.
 
 ##### Input: 
@@ -61,6 +64,8 @@ This action backs in a package.
 ##### Output: 
 
 ### Backout Package
+
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
 
 This action backs out a package.
 
@@ -70,6 +75,8 @@ This action backs out a package.
 
 ### Cast Package
 
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
+
 This action casts a package.
 
 ##### Input:
@@ -77,6 +84,8 @@ This action casts a package.
 ##### Output:
 
 ### Commit Package
+
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
 
 The COMMIT PACKAGE action removes all backout/backin data while retaining package event information. You can use the COMMIT action against a package only if the package has a status of **Executed** or **Exec-failed**.
 
@@ -86,6 +95,8 @@ The COMMIT PACKAGE action removes all backout/backin data while retaining packag
 
 ### Delete Package
 
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
+
 This action deletes a package.
 
 ##### Input: 
@@ -93,6 +104,8 @@ This action deletes a package.
 ##### Output: 
 
 ### Execute Package
+
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
 
 This action executes a package.
 
@@ -115,6 +128,8 @@ This action executes a package.
 
 ### List All Configurations
 
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
+
 This action lists all the available CA Endevor SCM configurations on the server.
 
 ##### Input:
@@ -124,6 +139,8 @@ None
 List of available CA Endevor SCM instances that are defined by configuration files on the server in JSON format.
 
 ### List Parameters of a Configuration
+
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
 
 This action lists all the parameters of a specific CA Endevor SCM configuration.
 
@@ -137,12 +154,13 @@ List of a specific CA Endevor SCM configuration in JSON format.
 
 The List package action lists CA Endevor SCM packages. Name-masking is supported to filter package names.
 
+![List_Packages](images/Endevor_List_Packages.png)
+
 ##### Input:
 
 | Variable | Description  |
 |----------|--------------|
 | instance | Name of a specific Endevor instance to validate instead of all available Endevor instances. |
-| Package  | The package  |
 | status   | filters by one or more of **INEDIT**, **INAPPROVAL**, **APPROVED**, **INEXECUTION**, **EXECUTED**, **COMMITTED**, **DENIED**.|
 | type     | filters by Standard or Emergency |
 | enterprise  | filters by enterprise package parameter, all, enterprise, exclude |
@@ -177,11 +195,62 @@ The SHIP PACKAGE action is used to ship a package to a remote site. You can ship
 
 ##### Output:
 
+### Create Package
+
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
+
+This action creates a package.
+
+##### Input: 
+
+| Variable | Description  |
+|----------|--------------|
+| description | Allows you to associate a 50-character description with the package. |
+| ewfromdate (DDMMMYY) |  Specify the time frame within which to execute the package. |
+| ewfromtime (HH:mm) | Specify the time frame within which to execute the package. |
+| ewtodate (DDMMMYY) | Specify the time frame within which to execute the package. |
+| ewtotime (HH:mm) | Specify the time frame within which to execute the package. | 
+| type | Specify the package type, where **S** = *STANDARD* and **E** = *EMERGENCY*. If you do not specify this option and you are creating a package, the package defaults to a *STANDARD* (**S**) package. |
+| sharable | Specify whether this package can be edited by more than one person when in In-edit status. If you do not specify this option and you are creating a package, the package defaults to a *NONSHARABLE* (**no**) package. |
+| backout | Indicates whether you want to have the backout facility available for this package. Use this clause when creating a package only. |
+| append | Indicates whether to append the SCL you are adding to the existing package SCL or to replace it. |
+| promotion | Define the package as a promotion package or a nonpromotion package. If you do not specify this option and you are creating a package, the package defaults to a NONPROMOTION (no) package. | 
+| fromPackage= | Directs the Create/Update action to copy the SCL from the package you specify into the package you are creating or updating. Use a fully specified package ID.| 
+| fromDSN= | Direct the Create/Update action to copy the SCL from the member (fromMember) in the data set name (fromDSN) you specify into the package you are creating or updating. Specify them together. |
+| fromMember= | Direct the Create/Update action to copy the SCL from the member (fromMember) in the data set name (fromDSN) you specify into the package you are creating or updating. Specify them together. |
+| validateSCL | Specify this option to not validate the package components while creating a package. |
+| sclfile | Use this input to add remarks to the package definition. Each line in the input represents one note. You can specify up to 8 text lines of up to 60 characters each. |
+
+
+##### Output:
+
+
 ### Update Package
+
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
 
 This action updates a package.
 
 ##### Input: 
+
+| Variable | Description  |
+|----------|--------------|
+| description | Allows you to associate a 50-character description with the package. |
+| ewfromdate (DDMMMYY) |  Specify the time frame within which to execute the package. |
+| ewfromtime (HH:mm) | Specify the time frame within which to execute the package. |
+| ewtodate (DDMMMYY) | Specify the time frame within which to execute the package. |
+| ewtotime (HH:mm) | Specify the time frame within which to execute the package. | 
+| type | Specify the package type, where **S** = *STANDARD* and **E** = *EMERGENCY*. If you do not specify this option and you are creating a package, the package defaults to a *STANDARD* (**S**) package. |
+| sharable | Specify whether this package can be edited by more than one person when in In-edit status. If you do not specify this option and you are creating a package, the package defaults to a *NONSHARABLE* (**no**) package. |
+| backout | Indicates whether you want to have the backout facility available for this package. Use this clause when creating a package only. |
+| append | Indicates whether to append the SCL you are adding to the existing package SCL or to replace it. |
+| promotion | Define the package as a promotion package or a nonpromotion package. If you do not specify this option and you are creating a package, the package defaults to a NONPROMOTION (no) package. | 
+| fromPackage= | Directs the Create/Update action to copy the SCL from the package you specify into the package you are creating or updating. Use a fully specified package ID.| 
+| fromDSN= | Direct the Create/Update action to copy the SCL from the member (fromMember) in the data set name (fromDSN) you specify into the package you are creating or updating. Specify them together. |
+| fromMember= | Direct the Create/Update action to copy the SCL from the member (fromMember) in the data set name (fromDSN) you specify into the package you are creating or updating. Specify them together. |
+| validateSCL | Specify this option to not validate the package components while creating a package. |
+| sclfile | Use this input to add remarks to the package definition. Each line in the input represents one note. You can specify up to 8 text lines of up to 60 characters each. |
+
 
 ##### Output:
 
