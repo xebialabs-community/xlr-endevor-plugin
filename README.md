@@ -169,7 +169,7 @@ The SHIP PACKAGE action is used to ship a package to a remote site. You can ship
 
 | Variable | Description  |
 |----------|--------------|
-| instance | The instance |
+| instance | Name of a specific Endevor instance to validate instead of all available Endevor instances. |
 | Package  | The package  |
 | destination | Indicates the name of the remote site to which you want to ship the specified package. This parameter is mandatory. |
 | option   | Indicates whether you want to ship output members, or backout members to the remote site. |
