@@ -10,15 +10,16 @@
 
 from endevor.EndevorClientUtil import Endevor_Client_Util
 
-print "Executing ShipPackage.py"
+params = {
+   'url': configuration.url,
+   'username': configuration.username,
+   'password': configuration.password,
+   'proxyHost': configuration.proxyHost,
+   'proxyPort': configuration.proxyPort
+}
 
-if endevorServer is None:
-  print "No server provided"
-  sys.exit(1)
+endevorClient = Endevor_Client_Util.create_endevor_client( params, configuration.username, configuration.password)
 
-credentials = CredentialsFallback(endevorServer, username, password).getCredentials()
+endevorClient.testServer()
 
-endevorClient = Endevor_Client_Util.create_endevor_client(endevorServer, credentials['username'], credentials['password'])
 
-(endevorReturnCode, endevorReasonCode, endevorResult) = endevorClient.ship_package(instance, package, destination, option, prefix)
-print endevorResult

@@ -10,7 +10,7 @@
 
 from endevor.EndevorClientUtil import Endevor_Client_Util
 
-print "Executing ShipPackage.py"
+print "Executing UpdatePackage.py"
 
 if endevorServer is None:
   print "No server provided"
@@ -20,5 +20,5 @@ credentials = CredentialsFallback(endevorServer, username, password).getCredenti
 
 endevorClient = Endevor_Client_Util.create_endevor_client(endevorServer, credentials['username'], credentials['password'])
 
-(endevorReturnCode, endevorReasonCode, endevorResult) = endevorClient.ship_package(instance, package, destination, option, prefix)
+(endevorReturnCode, endevorReasonCode, endevorResult) = endevorClient.create_package(instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate)
 print endevorResult

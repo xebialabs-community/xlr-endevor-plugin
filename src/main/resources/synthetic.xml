@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
 
-    Copyright 2017 XEBIALABS
+    Copyright 2018 XEBIALABS
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -36,37 +36,60 @@
 
     <type type="endevor.ListPackages" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/ListPackages.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
-        <property name="status" category="input" kind="list_of_string" />
-        <property name="packageType" category="input" kind="string" />
-        <property name="enterprise" category="input" kind="string" />
-        <property name="promotion" category="input" kind="string" />
+        <property name="instance"      category="input" kind="string" required="true"/>
+        <property name="status"        category="input" kind="list_of_string" />
+        <property name="packageType"   category="input" kind="string" required="false"/>
+        <property name="enterprise"    category="input" kind="string" required="false"/>
+        <property name="promotion"     category="input" kind="string" required="false"/>
+
         <property name="endevorResult" category="output" kind="list_of_string" />
     </type>
 
     <type type="endevor.UpdatePackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/UpdatePackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
-        <property name="package" category="input" kind="string" />
-        <property name="ewfromdate" category="input" kind="string" />
-        <property name="ewfromtime" category="input" kind="string" />
-        <property name="ewtodate" category="input" kind="string" />
-        <property name="ewtotime" category="input" kind="string" />
-        <property name="packageType" category="input" kind="string" />
-        <property name="shareable" category="input" kind="boolean" />
-        <property name="backout" category="input" kind="boolean" default="true" />
-        <property name="append" category="input" kind="boolean" />
-        <property name="promotion" category="input" kind="boolean" />
-        <property name="fromPackage" category="input" kind="string" />
-        <property name="fromDSN" category="input" label="From DSN" kind="string" />
-        <property name="fromMember" category="input" kind="string" />
-        <property name="doNotValidate" category="input" kind="boolean" />
-        <property name="endevorResult" category="output" kind="string" />
+        <property name="instance"      category="input" kind="string"    required="true"/>
+        <property name="package"       category="input" kind="string"    required="false"/>
+        <property name="ewfromdate"    category="input" kind="string"    required="false"/>
+        <property name="ewfromtime"    category="input" kind="string"    required="false"/>
+        <property name="ewtodate"      category="input" kind="string"    required="false"/>
+        <property name="ewtotime"      category="input" kind="string"    required="false"/>
+        <property name="packageType"   category="input" kind="string"    required="false"/>
+        <property name="shareable"     category="input" kind="boolean"   default="false"/>
+        <property name="backout"       category="input" kind="boolean"   default="true" />
+        <property name="append"        category="input" kind="boolean"   default="false"/>
+        <property name="promotion"     category="input" kind="boolean"   default="false"/>
+        <property name="fromPackage"   category="input" kind="string"    required="false"/>
+        <property name="fromDSN"       category="input" kind="string"    required="false" label="From DSN" />
+        <property name="fromMember"    category="input" kind="string"    required="false"/>
+        <property name="doNotValidate" category="input" kind="boolean"   required="false"/>
+
+        <property name="endevorResult" category="output" kind="string"  required="false"/>
+    </type>
+
+    <type type="endevor.CreatePackage" extends="endevor.Task">
+        <property name="scriptLocation" default="endevor/CreatePackage.py" hidden="true" />
+        <property name="instance"      category="input" kind="string"    required="true"/>
+        <property name="package"       category="input" kind="string"    required="false"/>
+        <property name="ewfromdate"    category="input" kind="string"    required="false"/>
+        <property name="ewfromtime"    category="input" kind="string"    required="false"/>
+        <property name="ewtodate"      category="input" kind="string"    required="false"/>
+        <property name="ewtotime"      category="input" kind="string"    required="false"/>
+        <property name="packageType"   category="input" kind="string"    required="false"/>
+        <property name="shareable"     category="input" kind="boolean"   default="false"/>
+        <property name="backout"       category="input" kind="boolean"   default="true" />
+        <property name="append"        category="input" kind="boolean"   default="false"/>
+        <property name="promotion"     category="input" kind="boolean"   default="false"/>
+        <property name="fromPackage"   category="input" kind="string"    required="false"/>
+        <property name="fromDSN"       category="input" kind="string"    required="false" label="From DSN" />
+        <property name="fromMember"    category="input" kind="string"    required="false"/>
+        <property name="doNotValidate" category="input" kind="boolean"   required="false"/>
+
+        <property name="endevorResult" category="output" kind="string"  required="false"/>
     </type>
 
     <type type="endevor.CastPackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/CastPackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
+        <property name="instance" category="input" kind="string"  required="true"/>
         <property name="package" category="input" kind="string" />
         <property name="ewfromdate" category="input" kind="string" />
         <property name="ewfromtime" category="input" kind="string" />
@@ -79,26 +102,27 @@
 
     <type type="endevor.ApprovePackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/ApprovePackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
+        <property name="instance" category="input" kind="string" required="true"/>
         <property name="package" category="input" kind="string" />
         <property name="endevorResult" category="output" kind="string" />
     </type>    
 
     <type type="endevor.ExecutePackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/ExecutePackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
-        <property name="package" category="input" kind="string" />
-        <property name="ewfromdate" category="input" kind="string" />
-        <property name="ewfromtime" category="input" kind="string" />
-        <property name="ewtodate" category="input" kind="string" />
-        <property name="ewtotime" category="input" kind="string" />
-        <property name="status" category="input" kind="string" />
+        <property name="instance"   category="input" kind="string" required="true"/>
+        <property name="package"    category="input" kind="string" />
+        <property name="ewfromdate" category="input" kind="string" required="false"/>
+        <property name="ewfromtime" category="input" kind="string" required="false"/>
+        <property name="ewtodate"   category="input" kind="string" required="false"/>
+        <property name="ewtotime"   category="input" kind="string" required="false"/>
+        <property name="status"     category="input" kind="string" required="false" description="Valid status are: APPROVED, EXECFAILED"/>
+
         <property name="endevorResult" category="output" kind="string" />
     </type>    
 
     <type type="endevor.BackoutPackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/BackoutPackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
+        <property name="instance" category="input" kind="string" required="true"/>
         <property name="package" category="input" kind="string" />
         <property name="statement" category="input" kind="string" />
         <property name="element" category="input" kind="string" />
@@ -107,7 +131,7 @@
 
     <type type="endevor.BackinPackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/BackinPackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
+        <property name="instance" category="input" kind="string" required="true"/>
         <property name="package" category="input" kind="string" />
         <property name="statement" category="input" kind="string" />
         <property name="element" category="input" kind="string" />
@@ -116,7 +140,7 @@
 
     <type type="endevor.CommitPackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/CommitPackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
+        <property name="instance" category="input" kind="string" required="true"/>
         <property name="package" category="input" kind="string" />
         <property name="olderThan" category="input" kind="string" />
         <property name="deletePromotionHistory" category="input" kind="boolean" />
@@ -125,17 +149,18 @@
 
     <type type="endevor.ShipPackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/ShipPackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
-        <property name="package" category="input" kind="string" />
+        <property name="instance"    category="input" kind="string" required="true"/>
+        <property name="package"     category="input" kind="string" />
         <property name="destination" category="input" kind="string" />
-        <property name="option" category="input" kind="string" />
-        <property name="prefix" category="input" kind="string" />
+        <property name="option"      category="input" kind="string" required="false"/>
+        <property name="prefix"      category="input" kind="string" required="false"/>
+
         <property name="endevorResult" category="output" kind="string" />
     </type>    
 
     <type type="endevor.DeletePackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/DeletePackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
+        <property name="instance" category="input" kind="string" required="true"/>
         <property name="package" category="input" kind="string" />
         <property name="olderThan" category="input" kind="string" />
         <property name="status" category="input" kind="string" />
@@ -144,7 +169,7 @@
 
     <type type="endevor.ResetPackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/ResetPackage.py" hidden="true" />
-        <property name="instance" category="input" kind="string" />
+        <property name="instance" category="input" kind="string" required="true"/>
         <property name="package" category="input" kind="string" />
         <property name="endevorResult" category="output" kind="string" />
     </type>    
