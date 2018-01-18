@@ -171,6 +171,8 @@ List of Packages in JSON format, which corresponds to the CA Endevor SCM List Pa
 
 ### Reset Package
 
+<span style="color:red">**Code returns dummy values for now pending testing against a live installation of CA Endevor.**</span>
+
 This action resets a package.
 
 ##### Input: 
