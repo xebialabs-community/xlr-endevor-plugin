@@ -1,6 +1,8 @@
-# XL Release Endevor plugin v0.1.0
+# XL Release Endevor plugin
 
 [![Build Status][xlr-endevor-plugin-travis-image]][xlr-endevor-plugin-travis-url]
+[![Codacy Badge][xlr-endevor-plugin-codacy-image]][xlr-endevor-plugin-codacy-url]
+[![Codeclimate Badge][xlr-endevor-plugin-codeclimate-image]][xlr-endevor-plugin-codeclimate-url]
 [![License: MIT][xlr-endevor-plugin-license-image]][xlr-endevor-plugin-license-url]
 ![Github All Releases][xlr-endevor-plugin-downloads-image]
 
@@ -9,6 +11,10 @@
 [xlr-endevor-plugin-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [xlr-endevor-plugin-license-url]: https://opensource.org/licenses/MIT
 [xlr-endevor-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-endevor-plugin/total.svg
+[xlr-endevor-plugin-codacy-image]: https://api.codacy.com/project/badge/Grade/99114736d2b9428f813bcd24f52e2a61
+[xlr-endevor-plugin-codacy-url]: https://www.codacy.com/app/zvercodebender/xlr-endevor-plugin?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xebialabs-community/xlr-endevor-plugin&amp;utm_campaign=Badge_Grade
+[xlr-endevor-plugin-codeclimate-image]: https://api.codeclimate.com/v1/badges/a0e427804d6869a540d3/maintainability 
+[xlr-endevor-plugin-codeclimate-url]: https://codeclimate.com/github/xebialabs-community/xlr-endevor-plugin/maintainability)
 
 ## Preface
 
