@@ -33,6 +33,7 @@ class Endevor_Client(object):
             data = response.getResponse()
             logger.warn( data )
             return
+        logger.warn("HTTP ERROR Code = %s" % response.getStatus() )
         self.throw_error(response)
        
     def list_all_configurations(self):
