@@ -12,7 +12,9 @@
 -->
 <synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <type type="endevor.Server" extends="configuration.HttpConnection" />
+    <type type="endevor.Server" extends="configuration.HttpConnection" >
+        <property name="scriptLocation" hidden="true" default="endevor/Server.py"/>
+    </type>
 
     <type type="endevor.Task" extends="xlrelease.PythonScript" virtual="true">
 <!--    <property name="iconLocation" default="endevor/endevor.png" hidden="true" /> -->

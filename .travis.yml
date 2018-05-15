@@ -1,9 +1,16 @@
 language: java
+notifications:
+  slack:
+    secure: WzdS5sSSQziwbZwqW8nCddRGC8SSrgcPyVn9NbV2MOkqa4mFawQOL05CCOc0RfV7otCCqxsDqXAehuyKzEVA8VrQ1g10Eelppbnv9WxDYzIj1M2MPmyo4RzHK6+aw0KRIujufgYQdxit+N/J2xATnUy+3hiXBQprCnIGXYaNk2w=
+  hipchat:
+    rooms:
+      secure: A0rtcc5iWVOiKodiYxX8DzNn777k2boUWILXtfEKKXqHzxENYaj5EHeMT+kC+2F/rnnjS79fMFD9VU4d/dbjiQH4wzHMPA5gBGpOpb+q0zbLTxt4sYmn+9HqVoIu774ZSBkX1fh5y/MM6qrjUJbPLMuBylM88PhYu95hGL7TW1w=
 deploy:
   provider: releases
   api_key:
     secure: GOglrAoRCIDuhFZVPHlcNGVpDvISUNo4U0n/noGzOK3zSudqGvVffHtaHFKQ1YA8Hs7RTQF7objduln3WHYNRRsniBAeU+TwTG+YgdvgGdgNkR75lsOdB4c+kS/5T+MPOUGP36ViBH6LexOgcp3yYbjehHjs1y8pyo2kjyjNnkpBMEGne3gNG2oj6wjWrZrHlyC96P+8HYdfsCb0CG1rDtCakD3Rb+t59hQ5FYUYOgfd9ZESwBp8v7SVQLUeP2wL8Dl58342Bq66eBQY3gqyndxzzGa0t900PUZrJd/c1rhpKNtLj+DbBbmC1YZRysxu2LoUdJvDpH7TPvzX10iGXblW/sue3cnRJRG+ujW7SSqUbg6RZrgKx9I8yh/qkwD/5g+UbnIbREBivQZ1UHjVDIlwQ/T4Ok+z3Yhk0Mo0vPQ37sbLUNT29LrAsGmpfRl0XUfEPKB2v2afv9Z5GygK7ZvXdfhatsYnHYVoF/iL14MZLeN++rxqQFzXEkJjLq7A6E3SZuUyy0Zwd2pGoLf3qQHGTC+CSRq6i0Fm0tb0ANq47jhgEIiPNdTdbKxyBM0AiZG5R6pYr+Ni9i0VEQAEQtTd50OBjZGhUc2SvOM9hcxJDjiHljml5CC3IYfeeHBtQeR3sxMStZndSSnHxWj5GWdR+agYrEPKLq2gYU+UKAY=
-  file: build/libs/xlr-endevor-plugin-1.0.0.jar
+  file_glob: true
+  file: build/libs/*
   skip_cleanup: true
   on:
     all_branches: true

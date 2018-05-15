@@ -33,6 +33,7 @@ class Endevor_Client(object):
             data = response.getResponse()
             logger.warn( data )
             return
+        logger.warn("HTTP ERROR Code = %s" % response.getStatus() )
         self.throw_error(response)
        
     def list_all_configurations(self):
@@ -73,19 +74,13 @@ class Endevor_Client(object):
         print endevorUrl.replace('&','?',1)
         response = self.httpRequest.get(endevorUrl.replace('&','?',1), contentType='application/json')
         data = json.loads(response.getResponse())
-        #logger.warn( "List Packages Return = %s" % data )
         print( "List Packages Return = %s" % data )
         if response.getStatus() in HTTP_SUCCESS:
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
             pkgList=[]
             for pkg in data['data']:
                 pkgList.append( pkg['pkgId'] )
             return (data['returnCode'], data['reasonCode'], pkgList)
         else:
-            #logger.warn("Return Code = %s" % data['returnCode'])
-            #logger.warn("Reason Code = %s" % data['reasonCode'])
-            #logger.warn("Message     = %s" % data['messages'])
             print("Return Code = %s" % data['returnCode'])
             print("Reason Code = %s" % data['reasonCode'])
             print("Message     = %s" % data['messages'])
