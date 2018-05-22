@@ -13,7 +13,7 @@
   "type":"endevor.Server",
   "password": "admin",
   "title": "Endevor",
-  "url": "http://localhost:8080/",
+  "url": "http://endevor:5000/",
   "username": "admin"
 }
 

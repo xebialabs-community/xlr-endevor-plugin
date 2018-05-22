@@ -16,12 +16,6 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 ####################### Endever server data
 
 
-#wget --http-user=admin --http-password=admin --auth-no-challenge \
-#     --header="Accept: application/json" \
-#     --header="Content-type: application/json" \
-#     --post-file=$SCRIPTPATH/data/server-config.json \
-#    http://localhost:5516/repository/cis -O /dev/null
-
 wget --http-user=admin --http-password=admin --auth-no-challenge \
      --header="Accept: application/json" \
      --header="Content-type: application/json" \

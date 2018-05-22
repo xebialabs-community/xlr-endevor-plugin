@@ -8,18 +8,17 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-from endevor.EndevorClient import Endevor_Client
+endevor:
+    image: rbroker/endevortest:0.1
+    ports:
+      - "9180:5000"
 
-params = {
-   'url': configuration.url,
-   'username': configuration.username,
-   'password': configuration.password,
-   'proxyHost': configuration.proxyHost,
-   'proxyPort': configuration.proxyPort
-}
-
-endevorClient = Endevor_Client.create_client( params, configuration.username, configuration.password)
-
-endevorClient.testServer()
-
-
+xlr:
+  image: xebialabs/xlr_dev_run:v8.0.0.2
+  volumes:
+    - ~/xl-licenses:/license
+    - ./../../../../:/data
+  links:
+   - endevor
+  ports:
+   - "15516:5516"
