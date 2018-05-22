@@ -21,4 +21,3 @@ credentials = CredentialsFallback(endevorServer, username, password).getCredenti
 endevorClient = Endevor_Client_Util.create_endevor_client(endevorServer, credentials['username'], credentials['password'])
 
 (endevorReturnCode, endevorReasonCode, endevorResult) = endevorClient.list_packages(instance, status, packageType, enterprise, promotion)
-print endevorResult
