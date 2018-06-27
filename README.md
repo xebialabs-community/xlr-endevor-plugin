@@ -1,9 +1,9 @@
 # XL Release Endevor plugin
 
-[![Build Status][xlr-endevor-plugin-travis-image][xlr-endevor-plugin-travis-url]
-[![Codacy Badge][xlr-endevor-plugin-codacy-image][xlr-endevor-plugin-codacy-url]
-[![Codeclimate Badge][xlr-endevor-plugin-codeclimate-image][xlr-endevor-plugin-codeclimate-url]
-[![License: MIT][xlr-endevor-plugin-license-image][xlr-endevor-plugin-license-url]
+[![Build Status][xlr-endevor-plugin-travis-image]][xlr-endevor-plugin-travis-url]
+[![Codacy Badge][xlr-endevor-plugin-codacy-image]][xlr-endevor-plugin-codacy-url]
+[![Codeclimate Badge][xlr-endevor-plugin-codeclimate-image]][xlr-endevor-plugin-codeclimate-url]
+[![License: MIT][xlr-endevor-plugin-license-image]][xlr-endevor-plugin-license-url]
 ![Github All Releases][xlr-endevor-plugin-downloads-image]
 
 [xlr-endevor-plugin-travis-image]: https://travis-ci.org/xebialabs-community/xlr-endevor-plugin.svg?branch=master
