@@ -28,14 +28,14 @@ class Endevor_Client(object):
 
     def testServer(self):
         endevorUrl = 'EndevorService/rest/application.wadl'
-        response = self.httpRequest.get(endevorUrl, contentType='application/json')
+        response = self.httpRequest.get(endevorUrl, contentType='application/*')
         if response.getStatus() in HTTP_SUCCESS:
             data = response.getResponse()
             print( data )
             return
         print("HTTP ERROR Code = %s" % response.getStatus() )
         self.throw_error(response)
-       
+
     def list_all_configurations(self):
         endevorUrl = 'EndevorService/rest'
         response = self.httpRequest.get(endevorUrl, contentType='application/json')
@@ -60,17 +60,17 @@ class Endevor_Client(object):
 
     def list_packages(self, instance, status, packageType, enterprise, promotion):
         endevorUrl = 'EndevorService/rest/%s/packages' % instance
-        
+
         if status:
             for item in status:
-                endevorUrl = "%s&status=%s" % (endevorUrl, item) 
+                endevorUrl = "%s&status=%s" % (endevorUrl, item)
         if packageType:
-            endevorUrl = "%s&type=%s" % (endevorUrl, packageType) 
+            endevorUrl = "%s&type=%s" % (endevorUrl, packageType)
         if enterprise:
-            endevorUrl = "%s&enterprise=%s" % (endevorUrl, enterprise) 
+            endevorUrl = "%s&enterprise=%s" % (endevorUrl, enterprise)
         if promotion:
-            endevorUrl = "%s&promotion=%s" % (endevorUrl, promotion) 
-        
+            endevorUrl = "%s&promotion=%s" % (endevorUrl, promotion)
+
         print endevorUrl.replace('&','?',1)
         response = self.httpRequest.get(endevorUrl.replace('&','?',1), contentType='application/json')
         data = json.loads(response.getResponse())
@@ -91,55 +91,7 @@ class Endevor_Client(object):
 
     def update_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate):
         endevorUrl = 'EndevorService/rest/%s/packages/%s' % (instance, package)
-        
-        if ewfromdate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate) 
-        if ewfromtime:
-            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime) 
-        if ewtodate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate) 
-        if ewtotime:
-            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime) 
-        if packageType:
-            endevorUrl = "%s&type=%s" % (endevorUrl, packageType) 
-        if shareable:
-            endevorUrl = "%s&shareable=%s" % (endevorUrl, "yes")
-        else:
-            endevorUrl = "%s&shareable=%s" % (endevorUrl, "no")
-        if backout:
-            endevorUrl = "%s&backout=%s" % (endevorUrl, "yes")
-        else:
-            endevorUrl = "%s&backout=%s" % (endevorUrl, "no")
-        if append:
-            endevorUrl = "%s&append=%s" % (endevorUrl, "yes")
-        else:
-            endevorUrl = "%s&append=%s" % (endevorUrl, "no")
-        if promotion:
-            endevorUrl = "%s&promotion=%s" % (endevorUrl, "yes") 
-        else:
-            endevorUrl = "%s&promotion=%s" % (endevorUrl, "no")
-        if fromPackage:
-            endevorUrl = "%s&fromPackage=%s" % (endevorUrl, fromPackage) 
-        if fromDSN:
-            endevorUrl = "%s&fromDSN=%s" % (endevorUrl, fromDSN) 
-        if fromMember:
-            endevorUrl = "%s&fromMember=%s" % (endevorUrl, fromMember)
-        if doNotValidate:
-            endevorUrl = "%s&do-not-validate=%s" % (endevorUrl, "true") 
-        
-        print endevorUrl.replace('&','?',1)
-        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
-        if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            print( "Update Package Return = %s" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor package info")
-        self.throw_error(response)
 
-    def create_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (instance, package)
-    
         if ewfromdate:
             endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate)
         if ewfromtime:
@@ -174,7 +126,55 @@ class Endevor_Client(object):
             endevorUrl = "%s&fromMember=%s" % (endevorUrl, fromMember)
         if doNotValidate:
             endevorUrl = "%s&do-not-validate=%s" % (endevorUrl, "true")
-    
+
+        print endevorUrl.replace('&','?',1)
+        response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        if response.getStatus() in HTTP_SUCCESS:
+            data = json.loads(response.getResponse())
+            print( "Update Package Return = %s" % data )
+            # TO-DO:  determine structure of returned data
+            #           return (data.returnCode, data.reasonCode, data.data['key'])
+            return ("0000", "0000", "Endevor package info")
+        self.throw_error(response)
+
+    def create_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (instance, package)
+
+        if ewfromdate:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate)
+        if ewfromtime:
+            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime)
+        if ewtodate:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate)
+        if ewtotime:
+            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime)
+        if packageType:
+            endevorUrl = "%s&type=%s" % (endevorUrl, packageType)
+        if shareable:
+            endevorUrl = "%s&shareable=%s" % (endevorUrl, "yes")
+        else:
+            endevorUrl = "%s&shareable=%s" % (endevorUrl, "no")
+        if backout:
+            endevorUrl = "%s&backout=%s" % (endevorUrl, "yes")
+        else:
+            endevorUrl = "%s&backout=%s" % (endevorUrl, "no")
+        if append:
+            endevorUrl = "%s&append=%s" % (endevorUrl, "yes")
+        else:
+            endevorUrl = "%s&append=%s" % (endevorUrl, "no")
+        if promotion:
+            endevorUrl = "%s&promotion=%s" % (endevorUrl, "yes")
+        else:
+            endevorUrl = "%s&promotion=%s" % (endevorUrl, "no")
+        if fromPackage:
+            endevorUrl = "%s&fromPackage=%s" % (endevorUrl, fromPackage)
+        if fromDSN:
+            endevorUrl = "%s&fromDSN=%s" % (endevorUrl, fromDSN)
+        if fromMember:
+            endevorUrl = "%s&fromMember=%s" % (endevorUrl, fromMember)
+        if doNotValidate:
+            endevorUrl = "%s&do-not-validate=%s" % (endevorUrl, "true")
+
         print endevorUrl.replace('&','?',1)
         response = self.httpRequest.post(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
         if response.getStatus() in HTTP_SUCCESS:
@@ -190,13 +190,13 @@ class Endevor_Client(object):
         endevorUrl = 'EndevorService/rest/%s/packages/%s/Cast' % (instance, package)
 
         if ewfromdate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate) 
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate)
         if ewfromtime:
-            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime) 
+            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime)
         if ewtodate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate) 
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate)
         if ewtotime:
-            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime) 
+            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime)
         if validateComponents:
             endevorUrl = "%s&validate-components=%s" % (endevorUrl, validateComponents)
         if backout:
@@ -231,15 +231,15 @@ class Endevor_Client(object):
         endevorUrl = 'EndevorService/rest/%s/packages/%s/Execute' % (instance, package)
 
         if ewfromdate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate) 
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate)
         if ewfromtime:
-            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime) 
+            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime)
         if ewtodate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate) 
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate)
         if ewtotime:
-            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime) 
+            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime)
         if status:
-            endevorUrl = "%s&status=%s" % (endevorUrl, status) 
+            endevorUrl = "%s&status=%s" % (endevorUrl, status)
 
         print endevorUrl.replace('&','?',1)
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
@@ -255,9 +255,9 @@ class Endevor_Client(object):
         endevorUrl = 'EndevorService/rest/%s/packages/%s/Backout' % (instance, package)
 
         if statement:
-            endevorUrl = "%s&statement=%s" % (endevorUrl, statement) 
+            endevorUrl = "%s&statement=%s" % (endevorUrl, statement)
         if element:
-            endevorUrl = "%s&element=%s" % (endevorUrl, element) 
+            endevorUrl = "%s&element=%s" % (endevorUrl, element)
 
         print endevorUrl.replace('&','?',1)
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
@@ -273,9 +273,9 @@ class Endevor_Client(object):
         endevorUrl = 'EndevorService/rest/%s/packages/%s/Backin' % (instance, package)
 
         if statement:
-            endevorUrl = "%s&statement=%s" % (endevorUrl, statement) 
+            endevorUrl = "%s&statement=%s" % (endevorUrl, statement)
         if element:
-            endevorUrl = "%s&element=%s" % (endevorUrl, element) 
+            endevorUrl = "%s&element=%s" % (endevorUrl, element)
 
         print endevorUrl.replace('&','?',1)
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
@@ -291,11 +291,11 @@ class Endevor_Client(object):
         endevorUrl = 'EndevorService/rest/%s/packages/%s/Commit' % (instance, package)
 
         if olderThan:
-            endevorUrl = "%s&olderthan=%s" % (endevorUrl, olderThan) 
+            endevorUrl = "%s&olderthan=%s" % (endevorUrl, olderThan)
         if deletePromotionHistory:
-            endevorUrl = "%sdelete-promotion-history=%s" % (endevorUrl, "true") 
+            endevorUrl = "%sdelete-promotion-history=%s" % (endevorUrl, "true")
         else:
-            endevorUrl = "%sdelete-promotion-history=%s" % (endevorUrl, "false") 
+            endevorUrl = "%sdelete-promotion-history=%s" % (endevorUrl, "false")
 
         print endevorUrl.replace('&','?',1)
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
@@ -311,11 +311,11 @@ class Endevor_Client(object):
         endevorUrl = 'EndevorService/rest/%s/packages/%s/Ship' % (instance, package)
 
         if destination:
-            endevorUrl = "%s&destination=%s" % (endevorUrl, destination) 
+            endevorUrl = "%s&destination=%s" % (endevorUrl, destination)
         if option:
-            endevorUrl = "%s&option=%s" % (endevorUrl, option) 
+            endevorUrl = "%s&option=%s" % (endevorUrl, option)
         if prefix:
-            endevorUrl = "%s&prefix=%s" % (endevorUrl, prefix) 
+            endevorUrl = "%s&prefix=%s" % (endevorUrl, prefix)
 
         print endevorUrl.replace('&','?',1)
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
@@ -332,9 +332,9 @@ class Endevor_Client(object):
         endevorUrl = 'EndevorService/rest/%s/packages/%s' % (instance, package)
 
         if olderThan:
-            endevorUrl = "%s&olderthan=%s" % (endevorUrl, olderThan) 
+            endevorUrl = "%s&olderthan=%s" % (endevorUrl, olderThan)
         if status:
-            endevorUrl = "%s&status=%s" % (endevorUrl, status) 
+            endevorUrl = "%s&status=%s" % (endevorUrl, status)
 
         print endevorUrl.replace('&','?',1)
         response = self.httpRequest.delete(endevorUrl.replace('&','?',1), contentType='application/json')
@@ -361,4 +361,4 @@ class Endevor_Client(object):
 
     def throw_error(self, response):
         print "Error from EndevorService, HTTP Return: %s\n" % (response.getStatus())
-        sys.exit(1)
+        sys.exit(response.getStatus())
