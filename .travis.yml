@@ -1,15 +1,30 @@
 language: java
+before_install:
+  - openssl aes-256-cbc -K $encrypted_c697eaf6d3fe_key -iv $encrypted_c697eaf6d3fe_iv
+    -in deploy_key.enc -out /tmp/deploy_key -d
+  - eval "$(ssh-agent -s)"
+  - echo -e "Host $DIST_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - chmod 600 /tmp/deploy_key
+  - ssh-add /tmp/deploy_key
+deploy:
+    - provider: releases
+      api_key:
+        secure: NYtDsiN1loeMOyL7BOlSaxyshSgJEVjrp5MpoIux3ZxS+DZO9Um9J9TPWtIYHvtqPz3DNGyxRl3G+pv9ln90oDwhDx3RXw7nNtWuXVZr+Oj1yC9UqccL/+W8w7bkYF48rl8D0mcWnuIxf+tb3/ferbg8v2cw9mPStTDw/GbUgErfhQvhID1anr7cWXjCjwdJztB3Uh9ZX5y+Vv83eN8PZQ35l4TVEzGBWFoM62deNcYUWYfouwceQpi031YlFveq4EljGrpEQNzvpIc6CxSVtGspAaR9TVk+wH5IMhd8fi7ujlDJOebbKblWMDYiZbSRppFr6eae5hpj9QEtqr2omFk1KLYgM22HGNChay9Ugzrw+CNOUTmM3QMCaRYSSE9jae4Lp67iqbcb/s9mlRbdjH82r3csEueWC1iYOohybJuGgipFnQe7BlwEUGDYUwtrlKGKZm85IAJVB/y7EYfv+CoKNbmvAwUqlNSMjhCHp+pKVTg5fCUZHD+DMdbRKw22dtAOpZ9eVifQ5hR23HbR6QfNwnj5dr9WT8ee/M8+E0sma7AJPzG5WX4RlOPdi/xSKgzB5VrXsXhCnZRc1RYER4qmnQH8yL6wSktrC3q3SER89PFvQTx6nGwLUgDUssU0aSHomQnLxVel9SjZrmS94C1UY3Pm8xGiQTpJYO5UYEY=
+      file_glob: true
+      file: build/libs/*
+      skip_cleanup: true
+      on:
+        all_branches: true
+        tags: true
+        repo: xebialabs-community/xlr-endevor-plugin
+    - provider: script
+      skip_cleanup: true
+      script: rsync --update -raz -i $TRAVIS_BUILD_DIR/build/libs/*.jar $DIST_USER@$DIST_HOST:$DIST_PATH/${TRAVIS_REPO_SLUG#*/}/
+      on:
+        all_branches: true
+#        tags: true
+        branch: master
+        repo: xebialabs-community/xlr-endevor-plugin
 notifications:
   slack:
     secure: fE06AlLS/O1oYupdul6IAY25/UlmTQM1fmgp8l1J62g8aD1A5y+x2MhoCta8mudtiGYRBGAxVXCLmy9r3mDrW4bgiR7Az8Ih9JIbGcsC10R5iJxv60qEp8+ISVe0hk7WzAYGkGj4hEb/AWZUGV2RFv+eBO7VaqgSnKiXllnlpE3sZ6gqZslYRAnIajSsibbScnxgjzLadO5cYcdbe9rQK38FDqWwCux/ijw2w49/MtuO6azwfUfN6bLojCifm2zAQ6HfpPu8MHN5tbiIuNozRQY+mrRT0OSBW8HJgrjBeZ7EKXN0f16qN85jpDpSITVx60HUTTJkz+h0hwP9K/+aUTHyScSv5e0JCFhNB1F9mkxWHkNaVbEGHFth9AUwwQoQ9A/Js523ofcoQOCThu8in2XNG2XH0C4hvGBSzMhGQLbUCXaSa/aj92+Sl7YKfTVB0DHBufkUjL+21M8Hyxqr0YKXvluTM7183m6aT6rTsqthnoSHUT4bXptP50WmEfW+hS4CE7RuZUiGtFRKD8DjwHuG2UHs65udzT2jPGPWNPcmyyEwSbKocAudP5rCyfoLPrWoKUa8dNIbM/zRfvicCWbdS9BHWM4ZFJs8po7DejT6wtsBifmVEqcXvuO66lMYSGZkhz1AnEby4K/tbir+tkEIWLijrdmJsT/Z6UTftlI=
-deploy:
-  provider: releases
-  api_key:
-    secure: NYtDsiN1loeMOyL7BOlSaxyshSgJEVjrp5MpoIux3ZxS+DZO9Um9J9TPWtIYHvtqPz3DNGyxRl3G+pv9ln90oDwhDx3RXw7nNtWuXVZr+Oj1yC9UqccL/+W8w7bkYF48rl8D0mcWnuIxf+tb3/ferbg8v2cw9mPStTDw/GbUgErfhQvhID1anr7cWXjCjwdJztB3Uh9ZX5y+Vv83eN8PZQ35l4TVEzGBWFoM62deNcYUWYfouwceQpi031YlFveq4EljGrpEQNzvpIc6CxSVtGspAaR9TVk+wH5IMhd8fi7ujlDJOebbKblWMDYiZbSRppFr6eae5hpj9QEtqr2omFk1KLYgM22HGNChay9Ugzrw+CNOUTmM3QMCaRYSSE9jae4Lp67iqbcb/s9mlRbdjH82r3csEueWC1iYOohybJuGgipFnQe7BlwEUGDYUwtrlKGKZm85IAJVB/y7EYfv+CoKNbmvAwUqlNSMjhCHp+pKVTg5fCUZHD+DMdbRKw22dtAOpZ9eVifQ5hR23HbR6QfNwnj5dr9WT8ee/M8+E0sma7AJPzG5WX4RlOPdi/xSKgzB5VrXsXhCnZRc1RYER4qmnQH8yL6wSktrC3q3SER89PFvQTx6nGwLUgDUssU0aSHomQnLxVel9SjZrmS94C1UY3Pm8xGiQTpJYO5UYEY=
-  file_glob: true
-  file: build/libs/*
-  skip_cleanup: true
-  on:
-    all_branches: true
-    tags: true
-    repo: xebialabs-community/xlr-endevor-plugin

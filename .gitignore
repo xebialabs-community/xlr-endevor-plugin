@@ -3,3 +3,4 @@ build
 temp
 .idea/*
 supervisord*
+deploy_key
