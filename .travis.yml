@@ -1,4 +1,5 @@
 language: java
+jdk: openjdk8
 before_install:
   - openssl aes-256-cbc -K $encrypted_c697eaf6d3fe_key -iv $encrypted_c697eaf6d3fe_iv
     -in deploy_key.enc -out /tmp/deploy_key -d
