@@ -1,0 +1,11 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: Endevor
+  children:
+  - name: Endevor
+    type: endevor.Server
+    url: http://endevor:5000/
+    username: admin
+    password: admin

@@ -9,12 +9,12 @@
 #
 
 endevor:
-    image: rbroker/endevortest:0.1
+    image: rbroker/endevortest:1.0
     ports:
       - "9180:5000"
 
-xlr:
-  image: xebialabs/xlr_dev_run:v8.0.0.2
+xlr_endevor:
+  image: xebialabsunsupported/xlr_dev_run:9.0.6
   volumes:
     - ~/xl-licenses:/license
     - ./../../../../:/data

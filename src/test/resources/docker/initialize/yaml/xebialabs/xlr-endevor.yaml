@@ -1,0 +1,74 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: Endevor
+  children:
+  - template: Endevor Test
+    scheduledStartDate: 2018-01-30T08:00:00Z
+    phases:
+    - phase: DEV
+      tasks:
+      - name: Create Package
+        type: endevor.CreatePackage
+        endevorServer: Endevor
+        instance: DEV
+      - name: Approve Package
+        type: endevor.ApprovePackage
+        endevorServer: Endevor
+        instance: DEV
+        package: package
+      - name: Execute Package
+        type: endevor.ExecutePackage
+        endevorServer: Endevor
+        instance: DEV
+        package: package
+      - name: List Packages Default
+        type: endevor.ListPackages
+        endevorServer: Endevor
+        instance: DEV
+        ^status:
+          - "READY"
+      - name: List Packages Aetna
+        type: endevor.ListPackages
+        endevorServer: Endevor
+        instance: AETNA
+        ^status:
+          - OK
+      color: '#009CDB'
+    - phase: QA
+      tasks:
+      - name: Ship Package
+        type: endevor.ShipPackage
+        endevorServer: Endevor
+        instance: DEV
+        package: package
+        destination: QA
+      - name: Commit Package
+        type: endevor.CommitPackage
+        endevorServer: Endevor
+        instance: DEV
+        package: package
+        olderThan: Jan-30-2017
+      - name: Roll Back
+        type: endevor.BackoutPackage
+        endevorServer: Endevor
+        instance: DEV
+        package: package
+        statement: cool
+        element: element
+      color: '#009CDB'
+    riskProfile: Default risk profile
+  - type: xlrelease.Dashboard
+    tiles:
+    - name: Release progress
+      type: xlrelease.ReleaseProgressTile
+    - name: Release summary
+      type: xlrelease.ReleaseSummaryTile
+    - name: Resource usage
+      type: xlrelease.ResourceUsageTile
+    - name: Release timeline
+      type: xlrelease.TimelineTile
+    - name: Release health
+      type: xlrelease.ReleaseHealthTile
+    parentTemplate: Endevor Test
