@@ -43,23 +43,31 @@ class Endevor_Client(object):
     def list_all_configurations(self):
         endevorUrl = 'EndevorService/rest'
         response = self.httpRequest.get(endevorUrl, contentType='application/json')
+        self.logger.error("List All Configurations Request %s" % endevorUrl)
+        data = json.loads(response.getResponse())
+        self.logger.error("List All Configurations Response=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info("List All Configurations Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", ['config1','config2','config3'])
+            return (data['returnCode'], data['reasonCode'], data['data'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def list_configuration_parameters(self, instance):
         endevorUrl = 'EndevorService/rest/%s' % instance
         response = self.httpRequest.get(endevorUrl, contentType='application/json')
+        self.logger.error("List Configuration Parameters Request %s" % endevorUrl)
+        data = json.loads(response.getResponse())
+        self.logger.error("List Configuration Parameters Response=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "List Configuration Parameters Return \n%s\n" % data )
             # TO-DO:  determine structure of returned data
             #           return (data.returnCode, data.reasonCode, data.data['key'])
             return ("0000", "0000", {'param1':'value1','param2':'value2','param3':'value3'})
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def list_packages(self, instance, status, packageType, enterprise, promotion):
@@ -75,9 +83,10 @@ class Endevor_Client(object):
         if promotion:
             endevorUrl = "%s&promotion=%s" % (endevorUrl, promotion)
 
-        self.logger.info("List Packages %s" % endevorUrl.replace('&','?',1) )
+        self.logger.error("List Packages Request %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.get(endevorUrl.replace('&','?',1), contentType='application/json')
         data = json.loads(response.getResponse())
+        self.logger.error("List Packages Response=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
             pkgList=[]
             for pkg in data['data']:
@@ -131,14 +140,16 @@ class Endevor_Client(object):
         if doNotValidate:
             endevorUrl = "%s&do-not-validate=%s" % (endevorUrl, "true")
 
-        self.logger.error("Update Package %s" % endevorUrl.replace('&','?',1) )
+        self.logger.error("Update Package Request %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Update Package Response=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "Update Package Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor package info")
+            return (data['returnCode'], data['reasonCode'], data['data'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def create_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate):
@@ -181,12 +192,14 @@ class Endevor_Client(object):
 
         self.logger.error("Create Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.post(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Create Package Return =============\n%s\n=============\n" % data )
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "Update Package Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor package info")
+            return (data['returnCode'], data['reasonCode'], data['messages'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
 
@@ -210,12 +223,14 @@ class Endevor_Client(object):
 
         self.logger.error("Cast Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Cast Package Return=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "Cast Package Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor cast result")
+            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def approve_package(self, instance, package):
@@ -223,12 +238,14 @@ class Endevor_Client(object):
 
         self.logger.error("Approve Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Approve Package Return=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "Approve Package Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor approve result")
+            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def execute_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, status):
@@ -247,12 +264,14 @@ class Endevor_Client(object):
 
         self.logger.error("Execute Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Execute Package Return=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.error( "Execute Package Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor execute result")
+            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def backout_package(self, instance, package, statement, element):
@@ -265,12 +284,14 @@ class Endevor_Client(object):
 
         self.logger.error("Backout Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Backout Package Return=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "Backout Package Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor backout result")
+            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def backin_package(self, instance, package, statement, element):
@@ -281,14 +302,16 @@ class Endevor_Client(object):
         if element:
             endevorUrl = "%s&element=%s" % (endevorUrl, element)
 
-        self.logger.error("Backin Package %s" % endevorUrl.replace('&','?',1) )
+        self.logger.error("Backin Package Request %s" % endevorUrl.replace('&','?',1))
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Backin Package Return=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "Backin Package Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor backin result")
+            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def commit_package(self, instance, package, olderThan, deletePromotionHistory):
@@ -303,12 +326,14 @@ class Endevor_Client(object):
 
         self.logger.error("Commit Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Commit Package Return=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "Commit Package Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor commit result")
+            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def ship_package(self, instance, package, destination, option, prefix):
@@ -321,15 +346,16 @@ class Endevor_Client(object):
         if prefix:
             endevorUrl = "%s&prefix=%s" % (endevorUrl, prefix)
 
-        self.logger.error("Ship Package %s" % endevorUrl.replace('&','?',1) )
+        self.logger.error("Ship Package Request %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Ship Package Return=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "Ship Package Return \n%s\n" % data )
-            return (data['returnCode'], data['reasonCode'], data['messages'])
-        self.logger.error("Return Code = %s" % data['returnCode'])
-        self.logger.error("Reason Code = %s" % data['reasonCode'])
-        self.logger.error("Message     = %s" % data['messages'])
+            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def delete_package(self, instance, package, olderThan, status):
@@ -342,25 +368,29 @@ class Endevor_Client(object):
 
         self.logger.error("Delete Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.delete(endevorUrl.replace('&','?',1), contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Delete Package Return=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "Delete Package Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor delete result")
+            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def reset_package(self, instance, package):
         endevorUrl = 'EndevorService/rest/%s/packages/%s/Reset' % (instance, package)
 
-        self.logger.error("Reset Package %s " % endevorUrl.replace('&','?',1) )
+        self.logger.error("Reset Package Request %s " % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        data = json.loads(response.getResponse())
+        self.logger.error("Reset Package Return=============\n%s\n==================" % data)
         if response.getStatus() in HTTP_SUCCESS:
-            data = json.loads(response.getResponse())
-            self.logger.info( "Reset Package Return \n%s\n" % data )
-            # TO-DO:  determine structure of returned data
-            #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", "Endevor reset result")
+            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+        else:
+            self.logger.error("Return Code = %s" % data['returnCode'])
+            self.logger.error("Reason Code = %s" % data['reasonCode'])
+            self.logger.error("Message     = %s" % data['messages'])
         self.throw_error(response)
 
     def throw_error(self, response):

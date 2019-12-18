@@ -20,5 +20,11 @@ credentials = CredentialsFallback(endevorServer, username, password).getCredenti
 
 endevorClient = Endevor_Client_Util.create_endevor_client(endevorServer, credentials['username'], credentials['password'])
 
-(endevorReturnCode, endevorReasonCode, endevorResult) = endevorClient.backout_package(instance, package, statement, element)
+(endevorReturnCode, endevorReasonCode, endevorResult, reports) = endevorClient.backout_package(instance, package, statement, element)
+
+print "# Reports:\n\n"
+for row in reports.keys():
+    print "- [%s](%s)\n" % (row, reports[row])
+
+print "\n\n"
 print endevorResult

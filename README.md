@@ -13,7 +13,7 @@
 [xlr-endevor-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-endevor-plugin/total.svg
 [xlr-endevor-plugin-codacy-image]: https://api.codacy.com/project/badge/Grade/99114736d2b9428f813bcd24f52e2a61
 [xlr-endevor-plugin-codacy-url]: https://www.codacy.com/app/zvercodebender/xlr-endevor-plugin?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xebialabs-community/xlr-endevor-plugin&amp;utm_campaign=Badge_Grade
-[xlr-endevor-plugin-codeclimate-image]: https://api.codeclimate.com/v1/badges/a0e427804d6869a540d3/maintainability 
+[xlr-endevor-plugin-codeclimate-image]: https://api.codeclimate.com/v1/badges/a0e427804d6869a540d3/maintainability
 [xlr-endevor-plugin-codeclimate-url]: https://codeclimate.com/github/xebialabs-community/xlr-endevor-plugin/maintainability
 
 ## Preface
@@ -30,7 +30,7 @@ This is a plugin allows XL Release to interact with Endevor for deploying, promo
 
 * Copy the xlr-endevor-plugin by copying the plugin jar to the **XL-RELEASE-HOME/plugin** folder.
 * On the Mainframe install the following:
-	* 	SMID Web Services 
+	* 	SMID Web Services
 	*  CISQ103
 	*  Tomcat under Unix services
 	*  Communications EAX
@@ -50,14 +50,14 @@ This action approves a package.
 
 ![Approve_Package](images/Endevor_Approve_Package.png)
 
-##### Input: 
+##### Input:
 
 | Variable | Description  |
 |----------|--------------|
 | instance | Name of a specific Endevor instance to validate instead of all available Endevor instances. |
 | Package  | The package  |
 
-##### Output: 
+##### Output:
 
 ### Backin Package
 
@@ -65,9 +65,9 @@ This action approves a package.
 
 This action backs in a package.
 
-##### Input: 
+##### Input:
 
-##### Output: 
+##### Output:
 
 ### Backout Package
 
@@ -75,9 +75,9 @@ This action backs in a package.
 
 This action backs out a package.
 
-##### Input: 
+##### Input:
 
-##### Output: 
+##### Output:
 
 ### Cast Package
 
@@ -105,9 +105,9 @@ The COMMIT PACKAGE action removes all backout/backin data while retaining packag
 
 This action deletes a package.
 
-##### Input: 
+##### Input:
 
-##### Output: 
+##### Output:
 
 ### Execute Package
 
@@ -126,7 +126,7 @@ This action executes a package.
 | Ewfromdate | Specifies the time frame within which to execute the package (Execution window). You can only use the execution window parameters if the package is fully qualified and the existing execution window is closed. |
 | Ewfromtime | Specifies the time frame within which to execute the package (Execution window). You can only use the execution window parameters if the package is fully qualified and the existing execution window is closed. |
 | Ewtodate | Specifies the time frame within which to execute the package (Execution window). You can only use the execution window parameters if the package is fully qualified and the existing execution window is closed. |
-| Ewtotime | Specifies the time frame within which to execute the package (Execution window). You can only use the execution window parameters if the package is fully qualified and the existing execution window is closed.| 
+| Ewtotime | Specifies the time frame within which to execute the package (Execution window). You can only use the execution window parameters if the package is fully qualified and the existing execution window is closed.|
 | Status | Specifies the statuses of the package you want to execute. You can only use this clause when you wildcard the package ID. The default is to execute packages that have a status of Approved. ( Valid statuses are: **APPROVED**, **EXECFAILED** |
 
 ##### Output:
@@ -150,10 +150,10 @@ List of available CA Endevor SCM instances that are defined by configuration fil
 
 This action lists all the parameters of a specific CA Endevor SCM configuration.
 
-#####Input: 
+#####Input:
 Configuration instance
 
-##### Output: 
+##### Output:
 List of a specific CA Endevor SCM configuration in JSON format.
 
 ### List Packages
@@ -173,7 +173,7 @@ The List package action lists CA Endevor SCM packages. Name-masking is supported
 | promotion | filters by promotion package parameter, all, promotion or exclude |
 
 ##### Output:
-List of Packages in JSON format, which corresponds to the CA Endevor SCM List Package ID function of the CSV utility. 
+List of Packages in JSON format, which corresponds to the CA Endevor SCM List Package ID function of the CSV utility.
 
 ### Reset Package
 
@@ -181,9 +181,9 @@ List of Packages in JSON format, which corresponds to the CA Endevor SCM List Pa
 
 This action resets a package.
 
-##### Input: 
+##### Input:
 
-##### Output: 
+##### Output:
 
 ### Ship Package
 
@@ -209,7 +209,7 @@ The SHIP PACKAGE action is used to ship a package to a remote site. You can ship
 
 This action creates a package.
 
-##### Input: 
+##### Input:
 
 | Variable | Description  |
 |----------|--------------|
@@ -217,13 +217,13 @@ This action creates a package.
 | ewfromdate (DDMMMYY) |  Specify the time frame within which to execute the package. |
 | ewfromtime (HH:mm) | Specify the time frame within which to execute the package. |
 | ewtodate (DDMMMYY) | Specify the time frame within which to execute the package. |
-| ewtotime (HH:mm) | Specify the time frame within which to execute the package. | 
+| ewtotime (HH:mm) | Specify the time frame within which to execute the package. |
 | type | Specify the package type, where **S** = *STANDARD* and **E** = *EMERGENCY*. If you do not specify this option and you are creating a package, the package defaults to a *STANDARD* (**S**) package. |
 | sharable | Specify whether this package can be edited by more than one person when in In-edit status. If you do not specify this option and you are creating a package, the package defaults to a *NONSHARABLE* (**no**) package. |
 | backout | Indicates whether you want to have the backout facility available for this package. Use this clause when creating a package only. |
 | append | Indicates whether to append the SCL you are adding to the existing package SCL or to replace it. |
-| promotion | Define the package as a promotion package or a nonpromotion package. If you do not specify this option and you are creating a package, the package defaults to a NONPROMOTION (no) package. | 
-| fromPackage= | Directs the Create/Update action to copy the SCL from the package you specify into the package you are creating or updating. Use a fully specified package ID.| 
+| promotion | Define the package as a promotion package or a nonpromotion package. If you do not specify this option and you are creating a package, the package defaults to a NONPROMOTION (no) package. |
+| fromPackage= | Directs the Create/Update action to copy the SCL from the package you specify into the package you are creating or updating. Use a fully specified package ID.|
 | fromDSN= | Direct the Create/Update action to copy the SCL from the member (fromMember) in the data set name (fromDSN) you specify into the package you are creating or updating. Specify them together. |
 | fromMember= | Direct the Create/Update action to copy the SCL from the member (fromMember) in the data set name (fromDSN) you specify into the package you are creating or updating. Specify them together. |
 | validateSCL | Specify this option to not validate the package components while creating a package. |
@@ -239,7 +239,7 @@ This action creates a package.
 
 This action updates a package.
 
-##### Input: 
+##### Input:
 
 | Variable | Description  |
 |----------|--------------|
@@ -247,13 +247,13 @@ This action updates a package.
 | ewfromdate (DDMMMYY) |  Specify the time frame within which to execute the package. |
 | ewfromtime (HH:mm) | Specify the time frame within which to execute the package. |
 | ewtodate (DDMMMYY) | Specify the time frame within which to execute the package. |
-| ewtotime (HH:mm) | Specify the time frame within which to execute the package. | 
+| ewtotime (HH:mm) | Specify the time frame within which to execute the package. |
 | type | Specify the package type, where **S** = *STANDARD* and **E** = *EMERGENCY*. If you do not specify this option and you are creating a package, the package defaults to a *STANDARD* (**S**) package. |
 | sharable | Specify whether this package can be edited by more than one person when in In-edit status. If you do not specify this option and you are creating a package, the package defaults to a *NONSHARABLE* (**no**) package. |
 | backout | Indicates whether you want to have the backout facility available for this package. Use this clause when creating a package only. |
 | append | Indicates whether to append the SCL you are adding to the existing package SCL or to replace it. |
-| promotion | Define the package as a promotion package or a nonpromotion package. If you do not specify this option and you are creating a package, the package defaults to a NONPROMOTION (no) package. | 
-| fromPackage= | Directs the Create/Update action to copy the SCL from the package you specify into the package you are creating or updating. Use a fully specified package ID.| 
+| promotion | Define the package as a promotion package or a nonpromotion package. If you do not specify this option and you are creating a package, the package defaults to a NONPROMOTION (no) package. |
+| fromPackage= | Directs the Create/Update action to copy the SCL from the package you specify into the package you are creating or updating. Use a fully specified package ID.|
 | fromDSN= | Direct the Create/Update action to copy the SCL from the member (fromMember) in the data set name (fromDSN) you specify into the package you are creating or updating. Specify them together. |
 | fromMember= | Direct the Create/Update action to copy the SCL from the member (fromMember) in the data set name (fromDSN) you specify into the package you are creating or updating. Specify them together. |
 | validateSCL | Specify this option to not validate the package components while creating a package. |
@@ -264,5 +264,4 @@ This action updates a package.
 
 ## References
 * [Restful API Clients](https://docops.ca.com/ca-endevor-SCM/18/en/web-services-and-eclipse-based-ui/restful-api-clients)
-* 
-
+* [Using the REST API](https://techdocs.broadcom.com/content/broadcom/techdocs/us/en/ca-mainframe-software/devops/ca-endevor-software-change-manager/18-0/using/using-the-rest-api.html#concept.dita_5b8645d74169b9deb3363ac8b2f31047a078b0a6_ExampleUseCases)
