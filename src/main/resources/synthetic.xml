@@ -50,7 +50,8 @@
     <type type="endevor.UpdatePackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/UpdatePackage.py" hidden="true" />
         <property name="instance"      category="input" kind="string"    required="true"/>
-        <property name="package"       category="input" kind="string"    required="false"/>
+        <property name="package"       category="input" kind="string"    required="true"/>
+        <property name="description"   category="input" kind="string"    required="false" />
         <property name="ewfromdate"    category="input" kind="string"    required="false"/>
         <property name="ewfromtime"    category="input" kind="string"    required="false"/>
         <property name="ewtodate"      category="input" kind="string"    required="false"/>
@@ -71,7 +72,8 @@
     <type type="endevor.CreatePackage" extends="endevor.Task">
         <property name="scriptLocation" default="endevor/CreatePackage.py" hidden="true" />
         <property name="instance"      category="input" kind="string"    required="true"/>
-        <property name="package"       category="input" kind="string"    required="false"/>
+        <property name="package"       category="input" kind="string"    required="true"/>
+        <property name="description"   category="input" kind="string"    required="true" />
         <property name="ewfromdate"    category="input" kind="string"    required="false"/>
         <property name="ewfromtime"    category="input" kind="string"    required="false"/>
         <property name="ewtodate"      category="input" kind="string"    required="false"/>

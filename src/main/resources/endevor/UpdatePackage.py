@@ -20,5 +20,5 @@ credentials = CredentialsFallback(endevorServer, username, password).getCredenti
 
 endevorClient = Endevor_Client_Util.create_endevor_client(endevorServer, credentials['username'], credentials['password'])
 
-(endevorReturnCode, endevorReasonCode, endevorResult) = endevorClient.update_package(instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate)
+(endevorReturnCode, endevorReasonCode, endevorResult) = endevorClient.update_package(instance, package, description, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate)
 print endevorResult
