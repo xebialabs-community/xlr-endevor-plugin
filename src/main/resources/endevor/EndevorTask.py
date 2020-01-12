@@ -7,18 +7,18 @@
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
+import endevor.EndevorClient
+if classReload:
+    reload(endevor.EndevorClient)
+from endevor.EndevorClient import Endevor_Client
+import org.slf4j.LoggerFactory as LoggerFactory
 
-from endevor.EndevorClientUtil import Endevor_Client_Util
+logger = LoggerFactory.getLogger("Endevor")
+endevor = Endevor_Client.create_client(endevorServer, username, password)
+method = str(task.getTaskType()).lower().replace('.', '_')
+logger.error("Call Endevor Method %s" % method)
 
-print "Executing UpdatePackage.py"
-
-if endevorServer is None:
-  print "No server provided"
-  sys.exit(1)
-
-credentials = CredentialsFallback(endevorServer, username, password).getCredentials()
-
-endevorClient = Endevor_Client_Util.create_endevor_client(endevorServer, credentials['username'], credentials['password'])
-
-(endevorReturnCode, endevorReasonCode, endevorResult) = endevorClient.create_package(instance, package, description, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate)
-print endevorResult
+call = getattr(endevor, method)
+response = call(locals())
+for key,value in response['output'].items():
+    locals()[key] = value

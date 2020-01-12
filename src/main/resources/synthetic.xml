@@ -18,9 +18,11 @@
 
     <type type="endevor.Task" extends="xlrelease.PythonScript" virtual="true">
 <!--    <property name="iconLocation" default="endevor/endevor.png" hidden="true" /> -->
+        <property name="scriptLocation" default="endevor/EndevorTask.py" hidden="true"/>
         <property name="endevorServer" category="input" label="Server" referenced-type="endevor.Server" kind="ci" />
         <property name="username" category="input" required="true" />
         <property name="password" password="true" category="input" required="true" />
+        <property name="classReload" category="input" default="true" hidden="true" kind="boolean"/>
         <property name="endevorReturnCode" category="output" kind="string" />
         <property name="endevorReasonCode" category="output" kind="string" />
     </type>
@@ -70,7 +72,7 @@
     </type>
 
     <type type="endevor.CreatePackage" extends="endevor.Task">
-        <property name="scriptLocation" default="endevor/CreatePackage.py" hidden="true" />
+<!--        <property name="scriptLocation" default="endevor/CreatePackage.py" hidden="true" />  -->
         <property name="instance"      category="input" kind="string"    required="true"/>
         <property name="package"       category="input" kind="string"    required="true"/>
         <property name="description"   category="input" kind="string"    required="true" />
