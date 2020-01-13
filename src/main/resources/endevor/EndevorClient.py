@@ -41,49 +41,58 @@ class Endevor_Client(object):
         self.logger.error("HTTP ERROR Code = %s" % response.getStatus() )
         self.throw_error(response)
 
-    def list_all_configurations(self):
+    def endevor_listallconfigurations(self, variables):
         endevorUrl = 'EndevorService/rest'
         response = self.httpRequest.get(endevorUrl, contentType='application/json')
         self.logger.error("List All Configurations Request %s" % endevorUrl)
         data = self.getJson(response)
-        self.logger.error("List All Configurations Response=============\n%s\n==================" % data)
+        self.logger.error("List All Configurations Response=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
+            self.logger.error("Create Package Return Codes")
+            data['endevorReturnCode'] = "0000"
+            data['endevorReasonCode'] = "0000"
+            data['endevorResult'] = ['value1', 'value2', 'value3']
+            return {'output': data}
             return (data['returnCode'], data['reasonCode'], data['data'])
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def list_configuration_parameters(self, instance):
-        endevorUrl = 'EndevorService/rest/%s' % instance
+    def endevor_listconfigurationparameters(self, variables):
+        endevorUrl = 'EndevorService/rest/%s' % variables['instance']
         response = self.httpRequest.get(endevorUrl, contentType='application/json')
         self.logger.error("List Configuration Parameters Request %s" % endevorUrl)
         data = json.loads(response.getResponse())
-        self.logger.error("List Configuration Parameters Response=============\n%s\n==================" % data)
+        self.logger.error("List Configuration Parameters Response=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
             # TO-DO:  determine structure of returned data
             #           return (data.returnCode, data.reasonCode, data.data['key'])
-            return ("0000", "0000", {'param1':'value1','param2':'value2','param3':'value3'})
+            self.logger.error("List Configuration Parameters Return Codes")
+            data['endevorReturnCode'] = "0000"
+            data['endevorReasonCode'] = "0000"
+            data['endevorResult'] = {'key1':'value1', 'key2':'value2', 'key3':'value3'}
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def list_packages(self, instance, status, packageType, enterprise, promotion):
-        endevorUrl = 'EndevorService/rest/%s/packages' % instance
+    def endevor_listpackages(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages' % variables['instance']
 
-        if status:
-            for item in status:
+        if variables['status']:
+            for item in variables['status']:
                 endevorUrl = "%s&status=%s" % (endevorUrl, item)
-        if packageType:
-            endevorUrl = "%s&type=%s" % (endevorUrl, packageType)
-        if enterprise:
-            endevorUrl = "%s&enterprise=%s" % (endevorUrl, enterprise)
-        if promotion:
+        if variables['packageType']:
+            endevorUrl = "%s&type=%s" % (endevorUrl, variables['packageType'])
+        if variables['enterprise']:
+            endevorUrl = "%s&enterprise=%s" % (endevorUrl, variables['enterprise'])
+        if variables['promotion']:
             endevorUrl = "%s&promotion=%s" % (endevorUrl, promotion)
 
         self.logger.error("List Packages Request %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.get(endevorUrl.replace('&','?',1), contentType='application/json')
         data = json.loads(response.getResponse())
-        self.logger.error("List Packages Response=============\n%s\n==================" % data)
+        self.logger.error("List Packages Response=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
             pkgList=[]
             for pkg in data['data']:
@@ -92,57 +101,64 @@ class Endevor_Client(object):
                     pkgList.append( pkg['pkgId'] )
                 if( "PKG ID" in pkg ):
                     pkgList.append( pkg['PKG ID'] )
-            return (data['returnCode'], data['reasonCode'], pkgList)
-        else:
+            self.logger.error("List Packages Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = pkgList
+            return {'output': data}
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def update_package(self, instance, package, description, ewfromdate, ewfromtime, ewtodate, ewtotime, packageType, shareable, backout, append, promotion, fromPackage, fromDSN, fromMember, doNotValidate):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (instance, package)
+    def endevor_updatepackage(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (variables['instance'], variables['package'])
 
-        if description:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, description)
-        if ewfromdate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate)
-        if ewfromtime:
-            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime)
-        if ewtodate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate)
-        if ewtotime:
-            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime)
-        if packageType:
-            endevorUrl = "%s&type=%s" % (endevorUrl, packageType)
-        if shareable:
+        if variables['description']:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['description']))
+        if variables['ewfromdate']:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewfromdate']))
+        if variables['ewfromtime']:
+            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, urllib.quote(variables['ewfromtime']))
+        if variables['ewtodate']:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewtodate']))
+        if variables['ewtotime']:
+            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, urllib.quote(variables['ewtotime']))
+        if variables['packageType']:
+            endevorUrl = "%s&type=%s" % (endevorUrl, urllib.quote(variables['packageType']))
+        if variables['shareable']:
             endevorUrl = "%s&shareable=%s" % (endevorUrl, "yes")
         else:
             endevorUrl = "%s&shareable=%s" % (endevorUrl, "no")
-        if backout:
+        if variables['backout']:
             endevorUrl = "%s&backout=%s" % (endevorUrl, "yes")
         else:
             endevorUrl = "%s&backout=%s" % (endevorUrl, "no")
-        if append:
+        if variables['append']:
             endevorUrl = "%s&append=%s" % (endevorUrl, "yes")
         else:
             endevorUrl = "%s&append=%s" % (endevorUrl, "no")
-        if promotion:
+        if variables['promotion']:
             endevorUrl = "%s&promotion=%s" % (endevorUrl, "yes")
         else:
             endevorUrl = "%s&promotion=%s" % (endevorUrl, "no")
-        if fromPackage:
-            endevorUrl = "%s&fromPackage=%s" % (endevorUrl, fromPackage)
-        if fromDSN:
-            endevorUrl = "%s&fromDSN=%s" % (endevorUrl, fromDSN)
-        if fromMember:
-            endevorUrl = "%s&fromMember=%s" % (endevorUrl, fromMember)
-        if doNotValidate:
+        if variables['fromPackage']:
+            endevorUrl = "%s&fromPackage=%s" % (endevorUrl, urllib.quote(variables['fromPackage']))
+        if variables['fromDSN']:
+            endevorUrl = "%s&fromDSN=%s" % (endevorUrl, urllib.quote(variables['fromDSN']))
+        if variables['fromMember']:
+            endevorUrl = "%s&fromMember=%s" % (endevorUrl, urllib.quote(variables['fromMember']))
+        if variables['doNotValidate']:
             endevorUrl = "%s&do-not-validate=%s" % (endevorUrl, "true")
 
         self.logger.error("Update Package Request %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
         data = json.loads(response.getResponse())
-        self.logger.error("Update Package Response=============\n%s\n==================" % data)
+        self.logger.error("Update Package Response=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
-            return (data['returnCode'], data['reasonCode'], data['data'])
+            self.logger.error("List Configuration Parameters Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = ""
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
@@ -190,7 +206,7 @@ class Endevor_Client(object):
         self.logger.error("Create Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.post(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
         data = self.getJson(response)
-        #self.logger.error("Create Package Return =============\n%s\n=============\n" % json.dumps(data, indent=4, sort_keys=True) )
+        self.logger.error("Create Package Return =============\n%s\n=============\n" % json.dumps(data, indent=4, sort_keys=True) )
         self.logger.error("HTTP Error Code %s" % response.getStatus())
         if response.getStatus() in HTTP_SUCCESS:
             self.logger.error("Create Package Return Codes")
@@ -204,20 +220,20 @@ class Endevor_Client(object):
         self.throw_error(response)
 
 
-    def cast_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, validateComponents, backout):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Cast' % (instance, package)
+    def endevor_castpackage(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Cast' % (variables['instance'], variables['package'])
 
-        if ewfromdate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate)
-        if ewfromtime:
-            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime)
-        if ewtodate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate)
-        if ewtotime:
-            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime)
-        if validateComponents:
-            endevorUrl = "%s&validate-components=%s" % (endevorUrl, validateComponents)
-        if backout:
+        if variables['ewfromdate']:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewfromdate']))
+        if variables['ewfromtime']:
+            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, urllib.quote(variables['ewfromtime']))
+        if variables['ewtodate']:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewtodate']))
+        if variables['ewtotime']:
+            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, urllib.quote(variables['ewtotime']))
+        if variables['validateComponents']:
+            endevorUrl = "%s&validate-components=%s" % (endevorUrl, urllib.quote(variables['validateComponents']))
+        if variables['backout']:
             endevorUrl = "%s&backout=%s" % (endevorUrl, "yes")
         else:
             endevorUrl = "%s&backout=%s" % (endevorUrl, "no")
@@ -227,90 +243,110 @@ class Endevor_Client(object):
         data = self.getJson(response)
         self.logger.error("Cast Package Return=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
-            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+            self.logger.error("Cast Package Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = data['messages']
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def approve_package(self, instance, package):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Approve' % (instance, package)
+    def endevor_approvepackage(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Approve' % (variables['instance'], variables['package'])
 
         self.logger.error("Approve Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
         data = self.getJson(response)
         self.logger.error("Approve Package Return=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
-            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+            self.logger.error("Approve Package Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = data['messages']
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def execute_package(self, instance, package, ewfromdate, ewfromtime, ewtodate, ewtotime, status):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Execute' % (instance, package)
+    def endevor_executepackage(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Execute' % (variables['instance'], variables['package'])
 
-        if ewfromdate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewfromdate)
-        if ewfromtime:
-            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, ewfromtime)
-        if ewtodate:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, ewtodate)
-        if ewtotime:
-            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, ewtotime)
-        if status:
-            endevorUrl = "%s&status=%s" % (endevorUrl, status)
+        if variables['ewfromdate']:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewfromdate']))
+        if variables['ewfromtime']:
+            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, urllib.quote(variables['ewfromtime']))
+        if variables['ewtodate']:
+            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewtodate']))
+        if variables['ewtotime']:
+            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, urllib.quote(variables['ewtotime']))
+        if variables['status']:
+            endevorUrl = "%s&status=%s" % (endevorUrl, urllib.quote(variables['status']))
 
         self.logger.error("Execute Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
         data = self.getJson(response)
         self.logger.error("Execute Package Return=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
-            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+            self.logger.error("Execute Package Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = data['messages']
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def backout_package(self, instance, package, statement, element):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Backout' % (instance, package)
+    def endevor_backoutpackage(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Backout' % (variables['instance'], variables['package'])
 
-        if statement:
-            endevorUrl = "%s&statement=%s" % (endevorUrl, statement)
-        if element:
-            endevorUrl = "%s&element=%s" % (endevorUrl, element)
+        if variables['statement']:
+            endevorUrl = "%s&statement=%s" % (endevorUrl, urllib.quote(variables['statement']))
+        if variables['element']:
+            endevorUrl = "%s&element=%s" % (endevorUrl, urllib.quote(variables['element']))
 
         self.logger.error("Backout Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
         data = self.getJson(response)
         self.logger.error("Backout Package Return=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
-            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+            self.logger.error("Backout Package Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = data['messages']
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def backin_package(self, instance, package, statement, element):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Backin' % (instance, package)
+    def endevor_backinpackage(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Backin' % (variables['instance'], variables['package'])
 
-        if statement:
-            endevorUrl = "%s&statement=%s" % (endevorUrl, statement)
-        if element:
-            endevorUrl = "%s&element=%s" % (endevorUrl, element)
+        if variables['statement']:
+            endevorUrl = "%s&statement=%s" % (endevorUrl, urllib.quote(variables['statement']))
+        if variables['element']:
+            endevorUrl = "%s&element=%s" % (endevorUrl, urllib.quote(variables['element']))
 
         self.logger.error("Backin Package Request %s" % endevorUrl.replace('&','?',1))
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
         data = self.getJson(response)
         self.logger.error("Backin Package Return=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
-            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+            self.logger.error("Backin Package Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = data['messages']
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def commit_package(self, instance, package, olderThan, deletePromotionHistory):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Commit' % (instance, package)
+    def endevor_commitpackage(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Commit' % (variables['instance'], variables['package'])
 
-        if olderThan:
-            endevorUrl = "%s&olderthan=%s" % (endevorUrl, olderThan)
-        if deletePromotionHistory:
+        if variables['olderThan']:
+            endevorUrl = "%s&olderthan=%s" % (endevorUrl, urllib.quote(variables['olderThan']))
+        if variables['deletePromotionHistory']:
             endevorUrl = "%sdelete-promotion-history=%s" % (endevorUrl, "true")
         else:
             endevorUrl = "%sdelete-promotion-history=%s" % (endevorUrl, "false")
@@ -320,58 +356,74 @@ class Endevor_Client(object):
         data = self.getJson(response)
         self.logger.error("Commit Package Return=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
-            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+            self.logger.error("Commit Package Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = data['messages']
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def ship_package(self, instance, package, destination, option, prefix):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Ship' % (instance, package)
+    def endevor_shippackage(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Ship' % (variables['instance'], variables['package'])
 
-        if destination:
-            endevorUrl = "%s&destination=%s" % (endevorUrl, destination)
-        if option:
-            endevorUrl = "%s&option=%s" % (endevorUrl, option)
-        if prefix:
-            endevorUrl = "%s&prefix=%s" % (endevorUrl, prefix)
+        if variables['destination']:
+            endevorUrl = "%s&destination=%s" % (endevorUrl, urllib.quote(variables['destination']))
+        if variables['option']:
+            endevorUrl = "%s&option=%s" % (endevorUrl, urllib.quote(variables['option']))
+        if variables['prefix']:
+            endevorUrl = "%s&prefix=%s" % (endevorUrl, urllib.quote(variables['prefix']))
 
         self.logger.error("Ship Package Request %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
         data = self.getJson(response)
         self.logger.error("Ship Package Return=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
-            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+            self.logger.error("Ship Package Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = data['messages']
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def delete_package(self, instance, package, olderThan, status):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (instance, package)
+    def endevor_deletepackage(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (variables['instance'], variables['package'])
 
-        if olderThan:
-            endevorUrl = "%s&olderthan=%s" % (endevorUrl, olderThan)
-        if status:
-            endevorUrl = "%s&status=%s" % (endevorUrl, status)
+        if variables['olderThan']:
+            endevorUrl = "%s&olderthan=%s" % (endevorUrl, urllib.quote(variables['olderThan']))
+        if variables['status']:
+            endevorUrl = "%s&status=%s" % (endevorUrl, urllib.quote(variables['status']))
 
         self.logger.error("Delete Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.delete(endevorUrl.replace('&','?',1), contentType='application/json')
         data = self.getJson(response)
         self.logger.error("Delete Package Return=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
-            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+            self.logger.error("Delete Package Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = data['messages']
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)
 
-    def reset_package(self, instance, package):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Reset' % (instance, package)
+    def endevor_resetpackage(self, variables):
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Reset' % (variables['instance'], variables['package'])
 
         self.logger.error("Reset Package Request %s " % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
         data = self.getJson(response)
         self.logger.error("Reset Package Return=============\n%s\n==================" % json.dumps(data, indent=4, sort_keys=True))
         if response.getStatus() in HTTP_SUCCESS:
-            return (data['returnCode'], data['reasonCode'], data['messages'], data['reports'])
+            self.logger.error("Delete Package Return Codes")
+            data['endevorReturnCode'] = data['returnCode']
+            data['endevorReasonCode'] = data['reasonCode']
+            data['endevorResult'] = data['messages']
+            return {'output': data}
         else:
             self.logBadReturnCodes(data)
         self.throw_error(response)

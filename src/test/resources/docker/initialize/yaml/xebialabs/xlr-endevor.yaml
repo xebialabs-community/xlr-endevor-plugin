@@ -21,6 +21,10 @@ spec:
         type: endevor.CreatePackage
         endevorServer: Endevor
         instance: DEV
+        package: PKG1
+        ^description: This is my package
+        shareable: True
+        doNotValidate: True
       - name: Approve Package
         type: endevor.ApprovePackage
         endevorServer: Endevor

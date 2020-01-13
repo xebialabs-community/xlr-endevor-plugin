@@ -22,3 +22,8 @@ call = getattr(endevor, method)
 response = call(locals())
 for key,value in response['output'].items():
     locals()[key] = value
+
+if 'reports' in response['output']:
+    print("# Reports:\n\n")
+    for key,value in response['output']['reports'].items():
+        print("- [%s](%s)\n" % (key, value))
