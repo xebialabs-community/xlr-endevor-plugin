@@ -168,47 +168,67 @@ class Endevor_Client(object):
     def endevor_createpackage(self, variables):
         endevorUrl = 'EndevorService/rest/%s/packages/%s' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
+        postData = {}
         if variables['description']:
-            endevorUrl = "%s&description=%s" % (endevorUrl, urllib.quote(variables['description']))
+            #endevorUrl = "%s&description=%s" % (endevorUrl, urllib.quote(variables['description']))
+            postData['description'] = urllib.quote(variables['description'])
         if variables['ewfromdate']:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewfromdate']))
+            #endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewfromdate']))
+            postData['ewfromdate'] = urllib.quote(variables['ewfromdate'])
         if variables['ewfromtime']:
-            endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, urllib.quote(variables['ewfromtime']))
+            #endevorUrl = "%s&ewfromtime=%s" % (endevorUrl, urllib.quote(variables['ewfromtime']))
+            postData['ewfromtime'] = urllib.quote(variables['ewfromtime'])
         if variables['ewtodate']:
-            endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewtodate']))
+            #endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewtodate']))
+            postData['ewfromdate'] = urllib.quote(variables['ewfromdate'])
         if variables['ewtotime']:
-            endevorUrl = "%s&ewtotime=%s" % (endevorUrl, urllib.quote(variables['ewtotime']))
+            #endevorUrl = "%s&ewtotime=%s" % (endevorUrl, urllib.quote(variables['ewtotime']))
+            postData['ewtotime'] = urllib.quote(variables['ewtotime'])
         if variables['packageType']:
-            endevorUrl = "%s&type=%s" % (endevorUrl, urllib.quote(variables['packageType']))
+            #endevorUrl = "%s&type=%s" % (endevorUrl, urllib.quote(variables['packageType']))
+            postData['type'] = urllib.quote(variables['packageType'])
         if variables['shareable']:
-            endevorUrl = "%s&shareable=%s" % (endevorUrl, "yes")
+            #endevorUrl = "%s&shareable=%s" % (endevorUrl, "yes")
+            postData['shareable'] = "yes"
         else:
-            endevorUrl = "%s&shareable=%s" % (endevorUrl, "no")
+            #endevorUrl = "%s&shareable=%s" % (endevorUrl, "no")
+            postData['shareable'] = "no"
         if variables['backout']:
-            endevorUrl = "%s&backout=%s" % (endevorUrl, "yes")
+            #endevorUrl = "%s&backout=%s" % (endevorUrl, "yes")
+            postData['backout'] = "yes"
         else:
-            endevorUrl = "%s&backout=%s" % (endevorUrl, "no")
+            #endevorUrl = "%s&backout=%s" % (endevorUrl, "no")
+            postData['backout'] = "no"
         if variables['append']:
-            endevorUrl = "%s&append=%s" % (endevorUrl, "yes")
+            #endevorUrl = "%s&append=%s" % (endevorUrl, "yes")
+            postData['append'] = "yes"
         else:
-            endevorUrl = "%s&append=%s" % (endevorUrl, "no")
+            #endevorUrl = "%s&append=%s" % (endevorUrl, "no")
+            postData['append'] = "no"
         if variables['promotion']:
-            endevorUrl = "%s&promotion=%s" % (endevorUrl, "yes")
+            #endevorUrl = "%s&promotion=%s" % (endevorUrl, "yes")
+            postData['promotion'] = "yes"
         else:
-            endevorUrl = "%s&promotion=%s" % (endevorUrl, "no")
+            #endevorUrl = "%s&promotion=%s" % (endevorUrl, "no")
+            postData['promotion'] = "no"
         if variables['fromPackage']:
-            endevorUrl = "%s&fromPackage=%s" % (endevorUrl, urllib.quote(variables['fromPackage']))
+            #endevorUrl = "%s&fromPackage=%s" % (endevorUrl, urllib.quote(variables['fromPackage']))
+            postData['fromPackage'] = urllib.quote(variables['fromPackage'])
         if variables['fromDSN']:
-            endevorUrl = "%s&fromDSN=%s" % (endevorUrl, urllib.quote(variables['fromDSN']))
+            #endevorUrl = "%s&fromDSN=%s" % (endevorUrl, urllib.quote(variables['fromDSN']))
+            postData['fromDSN'] = urllib.quote(variables['fromDSN'])
         if variables['fromMember']:
-            endevorUrl = "%s&fromMember=%s" % (endevorUrl, urllib.quote(variables['fromMember']))
+            #endevorUrl = "%s&fromMember=%s" % (endevorUrl, urllib.quote(variables['fromMember']))
+            postData['fromMember'] = urllib.quote(variables['fromMember'])
         if variables['doNotValidate']:
-            endevorUrl = "%s&validateSCL=%s" % (endevorUrl, "yes")
+            #endevorUrl = "%s&validateSCL=%s" % (endevorUrl, "yes")
+            postData['validateSCL'] = "yes"
         else:
-            endevorUrl = "%s&validateSCL=%s" % (endevorUrl, "no")
+            #endevorUrl = "%s&validateSCL=%s" % (endevorUrl, "no")
+            postData['validateSCL'] = "no"
 
-        self.logger.error("Create Package %s" % endevorUrl.replace('&','?',1) )
-        response = self.httpRequest.post(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
+        self.logger.error("Create Package %s\n===BODY===\n%s\n===BODY===" % (endevorUrl.replace('&','?',1), json.dumps(postData, indent=4, sort_keys=True)) )
+        response = self.httpRequest.post(endevorUrl.replace('&','?',1), json.dumps(postData), contentType='application/json')
         data = self.getJson(response)
         self.logger.error("Create Package Return =============\n%s\n=============\n" % json.dumps(data, indent=4, sort_keys=True) )
         self.logger.error("HTTP Error Code %s" % response.getStatus())
