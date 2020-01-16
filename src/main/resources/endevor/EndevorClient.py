@@ -59,7 +59,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_listconfigurationparameters(self, variables):
-        endevorUrl = 'EndevorService/rest/%s' % variables['instance']
+        endevorUrl = 'EndevorService/rest/%s' % urllib.quote(variables['instance'])
         response = self.httpRequest.get(endevorUrl, contentType='application/json')
         self.logger.error("List Configuration Parameters Request %s" % endevorUrl)
         data = json.loads(response.getResponse())
@@ -77,7 +77,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_listpackages(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages' % variables['instance']
+        endevorUrl = 'EndevorService/rest/%s/packages' % urllib.quote(variables['instance'])
 
         if variables['status']:
             for item in variables['status']:
@@ -110,7 +110,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_updatepackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         if variables['description']:
             endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['description']))
@@ -147,7 +147,9 @@ class Endevor_Client(object):
         if variables['fromMember']:
             endevorUrl = "%s&fromMember=%s" % (endevorUrl, urllib.quote(variables['fromMember']))
         if variables['doNotValidate']:
-            endevorUrl = "%s&do-not-validate=%s" % (endevorUrl, "true")
+            endevorUrl = "%s&validateSCL=%s" % (endevorUrl, "yes")
+        else:
+            endevorUrl = "%s&validateSCL=%s" % (endevorUrl, "no")
 
         self.logger.error("Update Package Request %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
@@ -164,7 +166,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_createpackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         if variables['description']:
             endevorUrl = "%s&description=%s" % (endevorUrl, urllib.quote(variables['description']))
@@ -201,7 +203,9 @@ class Endevor_Client(object):
         if variables['fromMember']:
             endevorUrl = "%s&fromMember=%s" % (endevorUrl, urllib.quote(variables['fromMember']))
         if variables['doNotValidate']:
-            endevorUrl = "%s&do-not-validate=%s" % (endevorUrl, "true")
+            endevorUrl = "%s&validateSCL=%s" % (endevorUrl, "yes")
+        else:
+            endevorUrl = "%s&validateSCL=%s" % (endevorUrl, "no")
 
         self.logger.error("Create Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.post(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
@@ -221,7 +225,7 @@ class Endevor_Client(object):
 
 
     def endevor_castpackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Cast' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Cast' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         if variables['ewfromdate']:
             endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewfromdate']))
@@ -253,7 +257,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_approvepackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Approve' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Approve' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         self.logger.error("Approve Package %s" % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
@@ -270,7 +274,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_executepackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Execute' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Execute' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         if variables['ewfromdate']:
             endevorUrl = "%s&ewfromdate=%s" % (endevorUrl, urllib.quote(variables['ewfromdate']))
@@ -298,7 +302,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_backoutpackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Backout' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Backout' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         if variables['statement']:
             endevorUrl = "%s&statement=%s" % (endevorUrl, urllib.quote(variables['statement']))
@@ -320,7 +324,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_backinpackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Backin' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Backin' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         if variables['statement']:
             endevorUrl = "%s&statement=%s" % (endevorUrl, urllib.quote(variables['statement']))
@@ -342,7 +346,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_commitpackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Commit' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Commit' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         if variables['olderThan']:
             endevorUrl = "%s&olderthan=%s" % (endevorUrl, urllib.quote(variables['olderThan']))
@@ -366,7 +370,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_shippackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Ship' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Ship' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         if variables['destination']:
             endevorUrl = "%s&destination=%s" % (endevorUrl, urllib.quote(variables['destination']))
@@ -390,7 +394,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_deletepackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         if variables['olderThan']:
             endevorUrl = "%s&olderthan=%s" % (endevorUrl, urllib.quote(variables['olderThan']))
@@ -412,7 +416,7 @@ class Endevor_Client(object):
         self.throw_error(response)
 
     def endevor_resetpackage(self, variables):
-        endevorUrl = 'EndevorService/rest/%s/packages/%s/Reset' % (variables['instance'], variables['package'])
+        endevorUrl = 'EndevorService/rest/%s/packages/%s/Reset' % (urllib.quote(variables['instance']), urllib.quote(variables['package']))
 
         self.logger.error("Reset Package Request %s " % endevorUrl.replace('&','?',1) )
         response = self.httpRequest.put(endevorUrl.replace('&','?',1), '{}', contentType='application/json')
